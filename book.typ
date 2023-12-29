@@ -1,16 +1,25 @@
 #set page(width: 8.5in, height: 11in)
 #set heading(numbering: "1.")
 #show figure.caption: strong
+#set document(title: "CSE 250: Data Structures")
 
+#align(center + horizon)[
+  #text(size: 40pt)[CSE 250: Data Structures]
 
-// Chapter 1: Math Refresher
-#include "chapters/2-asymptotic.typ"
-#include "chapters/3-lists.typ"
-// Chapter 4: Recursion, Divide and Conquer, Average Runtime
-// Chapter 5: The Stacks and Queue ADTs
-// Chapter 6: The Graph ADT and Graph Traversal
+  #text(size: 20pt)[Course Reference Guide]
+]
+
+#pagebreak() #outline()
+
+#pagebreak() #include "chapters/1-introduction.typ"
+#pagebreak() #include "chapters/2-math.typ"
+#pagebreak() #include "chapters/3-asymptotic.typ"
+#pagebreak() #include "chapters/4-lists.typ"
+// Chapter 5: Recursion, Divide and Conquer, Average Runtime
+// Chapter 6: The Stacks and Queue ADTs
+// Chapter 7: The Graph ADT and Graph Traversal
 // Chapter 7: The Priority Queue ADT
-// Chapter 7: Binary Search Trees
-// Chapter 8: Hash Tables
-// Chapter 9: Spatial Indexing
-// Chapter 10: On-Disk Data Structures
+// Chapter 8: Binary Search Trees
+// Chapter 9: Hash Tables
+// Chapter 10: Spatial Indexing
+// Chapter 11: On-Disk Data Structures

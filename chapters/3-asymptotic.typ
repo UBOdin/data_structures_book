@@ -462,7 +462,7 @@ That is, there exists ($exists$ means there exists) some positive constant $c$, 
 
 Let's look at some examples:
 
-===== $f(N) = 2N$ vs $g(N) = N$
+*Example:* $f(N) = 2N$ vs $g(N) = N$
 
 Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
 
@@ -473,7 +473,7 @@ Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$
 We start with the basic inequality, substitute in the values of $f(N)$ and $g(N)$, and then divide both sides by $N$.
 So, the inequality is always true for any value of $c >= 2$.  
 
-===== $f(N) = 100N^2$ vs $g(N) = N^2$
+*Example:* $f(N) = 100N^2$ vs $g(N) = N^2$
 
 Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
 
@@ -484,7 +484,7 @@ Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$
 We start with the basic inequality, substitute in the values of $f(N)$ and $g(N)$, and then divide both sides by $N$.
 So, the inequality is always true for any value of $c >= 100$.  
 
-===== $f(N) = N$ vs $g(N) = N^2$
+*Example:* $f(N) = N$ vs $g(N) = N^2$
 
 Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
 
