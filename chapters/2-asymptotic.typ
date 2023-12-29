@@ -424,7 +424,7 @@ We write $O(N)$ to mean the set of all mathematical functions that are *no worse
 - all mathematical functions in lesser (slower-growing) complexity classes (e.g., $Theta(1)$)
 - any mathematical function that never grows faster than $O(N)$ (e.g., the runtime of each individual lookup in our Python example above)
 
-Note how similar @list_lookup and the figure below are:
+The figure below illustrates $Theta(N)$ (the dotted region) and all lesser complexity classes.  Note the similarity to @list_lookup.
 
 #figure[
   #image("graphics/complexity-bigo.svg", width:50%)
@@ -442,27 +442,227 @@ To summarize, we write:
 - $f(N) in O(g(N))$ to say that $f(N)$ is in $Theta(g(N))$ or a lesser complexity class.
 - $f(N) in Omega(g(N))$ to say that $f(N)$ is in $Theta(g(N))$ or a greater complexity class.
 
-=== Formalizing Big-$O$ and Big-$Omega$
+=== Formalizing Big-$O$
 
 Before we formalize our bounds, let's first figure out what we want out of that formalism.  
 
 Let's start with the basic premise we outlined above: For a function $f(N)$ to be in the set $O(g(N))$, we want there to be some function in $Theta(g(N))$ that is always bigger than $f(N)$.
 
-The first problem we run into with this formalism is that we haven't really defined what exactly $Theta(g(N))$ is yet.
+The first problem we run into with this formalism is that we haven't really defined what exactly $Theta(g(N))$ is yet, so we need to pin down something first.  Let's start with the same assumption we made earlier: we can scale $g(N)$ by any constant value without changing its complexity class.  Formally:
 
+Formally: $forall c : c dot g(N) in Theta(g(N))$
 
-Let's try that out with a few 
+That is, for any constant $c$ ($forall$ means 'for all'), the product $c dot g(N)$ is in $Theta(g(N))$ (remember that $in$ means is in).  This isn't meant to be all-inclusive: There are many more functions in $Theta(g(N))$, but this gives us a pretty good range of functions that, at least intuitively, belong in $g(N)$'s complexity class.
 
+Now we have a basis for formalizing Big-$O$: We can say that $f(N) in O(g(N))$ if there is *some* multiple of $g(N)$ that is always bigger than $f(N)$.  Formally:
 
+$exists c > 0, forall N : f(N) <= c dot g(N)$
 
+That is, there exists ($exists$ means there exists) some positive constant $c$, such that for each value of $N$, the value of $f(N)$ is smaller than the corresponding value of $c dot g(N)$.
 
-- There's some function in $Theta(g(N))$ that is always bigger than $f(N)$
-- 
+Let's look at some examples:
 
+===== $f(N) = 2N$ vs $g(N) = N$
 
+Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
 
+- $f(N) <= c dot g(N)$
+- $2N <= c dot N$
+- $2 <= c$
+
+We start with the basic inequality, substitute in the values of $f(N)$ and $g(N)$, and then divide both sides by $N$.
+So, the inequality is always true for any value of $c >= 2$.  
+
+===== $f(N) = 100N^2$ vs $g(N) = N^2$
+
+Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
+
+- $f(N) <= c dot g(N)$
+- $100N^2 <= c dot N^2$
+- $100 <= c$
+
+We start with the basic inequality, substitute in the values of $f(N)$ and $g(N)$, and then divide both sides by $N$.
+So, the inequality is always true for any value of $c >= 100$.  
+
+===== $f(N) = N$ vs $g(N) = N^2$
+
+Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
+
+- $f(N) <= c dot g(N)$
+- $N <= c dot N^2$
+- $1 <= c dot N$
+
+*Uh-oh!*  For $N = 0$, there is no possible value of $c$ that we can plug into that inequality to make it true ($0 dot c$ is never bigger than $1$ for any $c$).  
+
+*Attempt 2*: So what went wrong?  Well, we mainly care about how $f(N)$ behaves for really big values of $N$.  In fact, for the example, for any $N >= 1$ (and $c >= 1$), the inequality is satisfied!  It's just that pesky $N = 0$!#footnote[
+  Recall that we're only allowing non-negative input sizes (i.e., $N >= 0$), so negative values of $N$ aren't a problem. 
+].
+
+So, we need to add one more thing to the formalism: the idea that we only care about "big" values of N.  Of course, that leaves the question of how big is "big"?  Now, we could pick specific cutoff values, but any specific cutoff we picked would be entirely arbitrary.  So, instead, we just make the cutoff definition part of the proof: When proving that $f(N) in O(g(N))$, we just need to show that *some* cutoff exists, beyond which $f(N) <= c dot g(N)$.  *The formal definition of Big-$O$ is*:
+
+$f(N) in O(g(N)) <=> exists c > 0, N_0 >= 0: forall N >= N_0 : f(N) <= c dot g(N)$
+
+This is the same as our first attempt, with only one thing added: $N_0$.  In other words, $f(N) in O(g(N))$ if we can pick some cutoff value ($exists N_0 >= 0$) so that for every bigger value of $N$ ($N >= N_0$), $f(N)$ is smaller than $c dot g(N)$.
+
+==== Proving a function has a specific Big-$O$ bound
+
+To show that a mathematical function is *in* $O(g(N))$, we need to find a $c$ and an $N_0$ for which we can prove the Big-$O$ inequality.  A generally useful strategy is:
+
+1. Write out the Big-O inequality
+2. "plug in" the values of $f(N)$ and $g(N)$
+3. "Solve for" $c$, putting it on one side of the inequality, with everything else on the other side.
+4. Try a safe default of $N_0 = 1$.  
+5. Use the $A <= B$ and $B <= C$ imply $A <= C$ trick (transitivity of inequality) to replace any term involving $N$ with $N_0$
+5. Use the resulting inequality to find a lower bound on $c$
+
+Continuing the above example:
+
+- $f(N) <= c dot g(N)$
+- $N <= c dot N^2$
+- $1/N <= c$
+
+For that last step, we have $N_0 <= N$, or $1 <= N$, so dividing both sides by $N$, we get $1/N <= 1$.  So, if we pick $1 <= c$, then $1/N <= 1 <= c$, and $1/N <= c$.
+
+==== Proving a function does not have a specific Big-$O$ bound
+
+To show that a mathematical function is *not in* $O(g(N))$, we need to prove that there can be *no* $c$ or $N_0$ for which we can prove the Big-$O$ inequality.  A generally useful strategy is:
+
+1. Write out the Big-O inequality
+2. "plug in" the values of $f(N)$ and $g(N)$
+3. "Solve for" $c$, putting it on one side of the inequality, with everything else on the other side.
+4. Simplify the equation on the opposite side and show that it is strictly growing.  Generally, this means that the right-hand-side is in a complexity class at least $N$.
+
+Flipping the above example:
+
+- $f(N) <= c dot g(N)$
+- $N^2 <= c dot N$
+- $N <= c$
+
+$N$ is strictly growing: for bigger values of $N$, it gets bigger.  There is no constant that can upper bound the mathematical function $N$.  
+
+/////////////////////////////////////////////
+=== Formalizing Big-$Omega$
+
+Now that we've formalized Big-$O$ (the upper bound), we can formalize Big-$Omega$ (the lower bound) in exactly the same way: 
+
+$f(N) in O(g(N)) <=> exists c > 0, N_0 >= 0: forall N >= N_0 : f(N) >= c dot g(N)$
+
+The only difference is the direction of the inequality: To prove that a function exists in Big-$Omega$, we need to show that $f(N)$ is bigger than some constant multiple of $g(N)$.  
 
 
 /////////////////////////////////////////////
+=== Formalizing Big-$Theta$
+
+Although we started with an intuition for Big-$Theta$, we haven't yet formalized it.  To understand why, let's take a look at the following runtime:
+
+$T(N) = 10N + "rand"(10)$
+
+Here $"rand"(10)$ means a randomly generated number between 0 and 10 for each call.  
+If the function were *just* $10N$, we'd be fine in using our intuitive definition of $Theta(N)$ being all multiples of $N$.  
+However, this function still "behaves like" $g(N) = N$... just with a little random noise added in.  
+For big values of $N$ (e.g., $10^10$), the random noise is barely perceptible.  
+Although we can't say that $T(N)$ is *equal to* some multiple $c dot N$, we can say that it is *close to* that multiple (in fact, it's always between $10N$ and $10N + 10$).
+In other words, we can bound it from both above and below!
+
+Let's try proving this with the tricks we developed for Big-$O$ and Big-$Omega$:
+
+- $T(N) <= c_"upper" dot N$
+- $10N + "rand"(10) <= c_"upper" dot N$ (plug in $T(N)$)
+- $10 + ("rand"(10))/N <= c_"upper"$ (divide by $N$)
+
+Looking at this formula, we can make a few quick observations.  First, by definition $"rand"(10)$ is never bigger than $10$.  
+Second, if $N_0 = 1$, $1/N$ can never be bigger than $1$.  
+In other words, $("rand"(10))/N$ can not be bigger than 10.
+Let's prove that to ourselves.
+
+Taking the default $N_0 =1$ we get:
+- $1 <= N$ (plug in $N_0$)
+- $10 <= 10N$ (multiply by $10$)
+- $"rand"(10) <= 10 <= 10N$ (transitivity with $"rand"(10) <= 10$)
+- $("rand"(10))/N <= 10$ (divide by $N$)
+- $10 + ("rand"(10))/N <= 10+10$ (add $10$)
+
+So, if we pick $c_"upper" >= 20$, we can show (again, by transitivity):
+
+$10 + ("rand"(10))/N <= c_"upper"$
+
+Which gets us $T(N) <= c_"upper" dot N$ for all $N > N_0$.
+
+Now let's try proving a lower (Big-$Omega$) bound:
+
+- $T(N) >= c_"lower" dot N$
+- $10N + "rand"(10) >= c_"lower" dot N$ (plug in $T(N)$)
+- $10 + ("rand"(10))/N >= c_"lower"$ (divide by $N$)
+- $10 >= c_"lower"$ (By transitivity: $10 >= 10 + ("rand"(10))/N$)
+
+This inequality holds for any $10 >= c_"lower" > 0$ (recall that $c$ has to be strictly bigger than zero).
+
+So, we've shown that $T(N) in O(N)$ *and* $T(N) in Omega(N)$.  
+The new thing is that we've shown that the upper and lower bounds *are the same*.
+That is, we've shown that $T(N) in O(g(N))$ and $T(N) in Omega(g(N))$ *for the same mathematical function $g$*.  
+If we can prove that an upper and lower bound for some mathematical function $f(N)$ that is the same mathematical function $g(N)$, we say that $f(N)$ and $g(N)$ are in the same complexity class.  Formally, $f(N) in Theta(g(N))$ if and only if $f(N) in O(g(N))$ *and* $f(N) in Omega(g(N))$. 
+
 === Tight Bounds
+
+In the example above, we said that $"rand"(10) <= 10$.  
+We could have just as easily said that $"rand"(10) <= 100$.  
+The latter inequality is just as true, but somehow less satisfying; yes, the random number will always be less than 100, but we can come up with a "tighter" bound (i.e., $10$).
+
+Similarly Big-$O$ and Big-$Omega$ are bounds.  
+We can say that $N in O(N^2)$ (i.e., $N$ is no worse than $N^2$).  
+On the other hand, this bound is just as unsatisfying as $"rand"(10) <= 100$, we can do better.
+
+If it is not possible to obtain a better Big-$O$ or Big-$Omega$ bound, we say that the bound is *tight*.  For example:
+
+- $10N^2 in O(N^2)$ and $10N^2 in Omega(N^2)$ are tight bounds.
+- $10N^2 in O(2^N)$ is correct, but *not* a tight bound.
+- $10N^2 in Omega(N)$ is correct, but *not* a tight bound.
+
+Note that since we define Big-$Theta$ as the intersection of Big-$O$ and Big-$Omega$, all Big-$Theta$ bounds are, by definition tight.
+As a result, we sometimes call Big-$Theta$ bounds "tight bounds".
+
+== Summary
+
+We defined three ways of describing runtimes (or any other mathematical function):
+
+- Big-$O$: The worst-case complexity: 
+  - $T(N) in O(g(N))$ means that the runtime $T(N)$ scales *no worse than* the complexity class of $g(N)$
+- Big-$Omega$: The best-case complexity
+  - $T(N) in Omega(g(N))$ means that the runtime $T(N)$ scales *no better than* the complexity class of $g(N)$
+- Big-$Theta$: The tight complexity
+  - $T(N) in Theta(g(N))$ means that the runtime $T(N)$ scales *exactly as* the complexity class of $g(N)$
+
+We'll introduce amortized and expected runtime bounds later on in the book; Since these bounds are given without qualifiers, and so are sometimes called the *Unqualified* runtimes.
+
+=== Formal Definitions
+
+For any two functions $f(N)$ and $g(N)$ we say that:
+
+- $f(N) in O(g(N))$ if and only if $exists c > 0, N_0 >= 0 : forall N > N_0 : f(N) <= c dot g(N)$
+- $f(N) in Omega(g(N))$ if and only if $exists c > 0, N_0 >= 0 : forall N > N_0 : f(N) >= c dot g(N)$
+- $f(N) in Theta(g(N))$ if and only if $f(N) in O(g(N))$ and $f(N) in Omega(g(N))$ 
+
+Note that a simple $Theta(g(N))$ may not exist for a given $f(N)$, specifically when the tight Big-$O$ and Big-$Omega$ bounds are different.
+
+=== Simple Complexity Classes
+
+We will refer to the following specific complexity classes:
+- *Constant*: $Theta (1)$
+- *Logarithmic*: $Theta (log N)$
+- *Linear*: $Theta (N)$
+- *Loglinear*: $Theta (N log N)$
+- *Quadratic*: $Theta (N^2)$
+- *Cubic*: $Theta (N^3)$
+- *Exponential* $Theta (2^N)$
+
+These complexity classes are listed in order.  
+
+=== Dominant Terms
+
+In general, any function that is a sum of simpler functions will be dominated by one of its terms.  That is:
+
+$f(N) = f_1(N) + f_2(N) + ... + f_k(N)$
+
+The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, and its Big-$Theta$ bound, if it exists) will be the *greatest* complexity of any individual term $f_i(N)$.
+
 
