@@ -1,0 +1,2036 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"prin",
+				"println\tprintln!(…)"
+			],
+			[
+				"print",
+				"println\tprintln!(…)"
+			],
+			[
+				"Plugin",
+				"PluginSearchResult"
+			],
+			[
+				"cal",
+				"calendars"
+			],
+			[
+				"reque",
+				"request_str"
+			],
+			[
+				"en",
+				"enum\tenum … { … }"
+			],
+			[
+				"Plug",
+				"PluginSearchResult (use launcher::PluginSearchResult)"
+			],
+			[
+				"Context",
+				"ContextAction::Copy"
+			],
+			[
+				"co",
+				"ContextOption"
+			],
+			[
+				"con",
+				"ContextOption"
+			],
+			[
+				"Cl",
+				"Close"
+			],
+			[
+				"Fi",
+				"Finished"
+			],
+			[
+				"ser",
+				"serde_json"
+			],
+			[
+				"Respon",
+				"PluginResponse"
+			],
+			[
+				"Res",
+				"PluginResponse"
+			],
+			[
+				"get_raw",
+				"get_raw_descendant"
+			],
+			[
+				"safe",
+				"safeOutputLookup(df: Any, col: String): Option[Any]"
+			],
+			[
+				"SO",
+				"SONATYPE_PASSWORD"
+			],
+			[
+				"art",
+				"artifactSearch: SearchWidget"
+			],
+			[
+				"Workflow",
+				"WorkflowElement"
+			],
+			[
+				"artif",
+				"artifactSearch: Any"
+			],
+			[
+				"place",
+				"placeholderText"
+			],
+			[
+				"search",
+				"searchTerms: Var[String]"
+			],
+			[
+				"sear",
+				"searchTerms: Var[Option[String]]"
+			],
+			[
+				"over",
+				"overflow"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"Experi",
+				"ExperimentalOptions - info.vizierdb.util"
+			],
+			[
+				"UnresolvedF",
+				"UnresolvedFunction - org.apache.spark.sql.catalyst.analysis"
+			],
+			[
+				"stri",
+				"stripMargin: String"
+			],
+			[
+				"PythonPro",
+				"PythonProcess info.vizierdb.commands.python"
+			],
+			[
+				"ena",
+				"isEnabled(option: String): Boolean"
+			],
+			[
+				"Caveats",
+				"Caveats org.mimirdb.caveats"
+			],
+			[
+				"push",
+				"pushDownA: Buffer[Expression]"
+			],
+			[
+				"va",
+				"override def vars: Set[Variable]"
+			],
+			[
+				"Push",
+				"PushDownSelection net.okennedy.hackdb.Optimizer"
+			],
+			[
+				"coin",
+				"override def conjunction: Seq[Expression]"
+			],
+			[
+				"Express",
+				"Expression net.okennedy.hackdb"
+			],
+			[
+				"plan",
+				"override def planParameterString: String"
+			],
+			[
+				"pla",
+				"override def planParameterString: String"
+			],
+			[
+				"app",
+				"applyOrElse[A1 <: Plan, B1 >: Plan](x: A1, default: A1 => B1): B1"
+			],
+			[
+				"Expressio",
+				"Expression net.okennedy.hackdb"
+			],
+			[
+				"Number",
+				"NumberFormatException java.lang"
+			],
+			[
+				"s",
+				"scala <root>"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"ProjectLi",
+				"ProjectListView"
+			],
+			[
+				"pub",
+				"pubmed_abbreviation"
+			],
+			[
+				"route",
+				"routestart"
+			],
+			[
+				"fi",
+				"finalize(): Unit"
+			],
+			[
+				"data",
+				"dataFiles: Array[File]"
+			],
+			[
+				"getA",
+				"getAbsolutePath(): String"
+			],
+			[
+				"final",
+				"finalOutputFile: Any"
+			],
+			[
+				"is",
+				"isEmpty: Boolean"
+			],
+			[
+				"work",
+				"workingDirectoryURL: Any"
+			],
+			[
+				"working",
+				"workingDirectoryFile"
+			],
+			[
+				"get",
+				"getOrElse(default: => String): String"
+			],
+			[
+				"wo",
+				"workingDirectory: ScallopOption[String]"
+			],
+			[
+				"na",
+				"name: Seq[String]"
+			],
+			[
+				"dataset",
+				"datasetSchema"
+			],
+			[
+				"Litera",
+				"Literal - org.apache.spark.sql.catalyst.expressions"
+			],
+			[
+				"sql",
+				"sqlText = "
+			],
+			[
+				"vari",
+				"variableReferences: Map[String,() => Expression]"
+			],
+			[
+				"Unresolved",
+				"UnresolvedAttribute org.apache.spark.sql.catalyst.analysis"
+			],
+			[
+				"Op",
+				"Option scala"
+			],
+			[
+				"series",
+				"seriesRegressionName(series: PlotUtils.Series): String"
+			],
+			[
+				"ca",
+				"cast(to: DataType): Column"
+			],
+			[
+				"seir",
+				"seriesName"
+			],
+			[
+				"uniqueData",
+				"uniqueDatasetsAndYaxes: Any"
+			],
+			[
+				"uniqueX",
+				"uniqueYAxes: Set[String]"
+			],
+			[
+				"uni",
+				"uniqueDatasets: Set[String]"
+			],
+			[
+				"acti",
+				"activeSelection: Option[Set[String]]"
+			],
+			[
+				"spe",
+				"specialCommandButtons: Any"
+			],
+			[
+				"no",
+				"selectedCommands.now"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"de",
+				"description = "
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"margin-",
+				"margin-left"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"pa",
+				"padding-right"
+			],
+			[
+				"tenta",
+				"prependTentative(defaultPackageList: Option[Seq[PackageDescription]] = ...): TentativeModule"
+			],
+			[
+				"ap",
+				"api: API"
+			],
+			[
+				"Command",
+				"CommandDescription - info.vizierdb.serialized"
+			],
+			[
+				"select",
+				"selectCommand(packageId: String, command: PackageCommand): Unit"
+			],
+			[
+				"I",
+				"IS_DEFAULT: Set[(String, String)]"
+			],
+			[
+				"packa",
+				"packageId = "
+			],
+			[
+				"lab",
+				"label = "
+			],
+			[
+				"Spe",
+				"SpecialCommand info.vizierdb.ui.components.CommandList"
+			],
+			[
+				"packag",
+				"packageId = "
+			],
+			[
+				"Special",
+				"SpecialCommand info.vizierdb.ui.components.CommandList"
+			],
+			[
+				"cl",
+				"clearTimeout(handle: Int): Unit"
+			],
+			[
+				"remo",
+				"removeChild(oldChild: Node): Node"
+			],
+			[
+				"tri",
+				"triggerInvocation: Seq[AttrPair[Element, _ >: Event => Unit <: MouseEvent => Unit]]"
+			],
+			[
+				"trigger",
+				"triggerInvocation: Seq[AttrPair[Element, _ >: Event => Unit <: MouseEvent => Unit]]"
+			],
+			[
+				"time",
+				"setTimeout(handler: Function0[scala.Any], timeout: Double): Int"
+			],
+			[
+				"clea",
+				"clearTimeout"
+			],
+			[
+				"cle",
+				"clearTimeout(handle: Int): Unit"
+			],
+			[
+				"tim",
+				"setTimeout(handler: Function0[scala.Any], timeout: Double): Int"
+			],
+			[
+				"page",
+				"evt.pageY"
+			],
+			[
+				"onmou",
+				"onmouseover: Attr"
+			],
+			[
+				"getP",
+				"getProperty(x$1: String): String"
+			],
+			[
+				"link",
+				"linkSelfToHead(oldHead: WorkflowElement): Unit"
+			],
+			[
+				"branch",
+				"branchSubscription: Var[Option[BranchSubscription]]"
+			],
+			[
+				"di",
+				"display: String"
+			],
+			[
+				"begin",
+				"\\begin"
+			],
+			[
+				"nativeRul",
+				"nativeRuleSet"
+			],
+			[
+				"Left",
+				"LeftExistenceJoin"
+			],
+			[
+				"Attrib",
+				"AttributeSet"
+			],
+			[
+				"group",
+				"groupingAttributes"
+			],
+			[
+				"Gr",
+				"FlatMapGroupsInPandas"
+			],
+			[
+				"re",
+				"referencesASubset"
+			],
+			[
+				"renam",
+				"RenameColumn"
+			],
+			[
+				"MIMI",
+				"MIMIR_VIZUAL"
+			],
+			[
+				"MIMIR_",
+				"MIMIR_INLINE"
+			],
+			[
+				"Alia",
+				"AliasHelperHack"
+			],
+			[
+				"sor",
+				"sortBy[B](f: ((String, Type)) => B)(implicit ord: Ordering[B]): Seq[(String, Type)]"
+			],
+			[
+				"Check",
+				"CheckTypeStep"
+			],
+			[
+				"Type",
+				"Type - com.astraldb.spec"
+			],
+			[
+				"Match",
+				"Match - com.astraldb.spec"
+			],
+			[
+				"typ",
+				"typedPaths: Any"
+			],
+			[
+				"nonCheckTypecan",
+				"nonCheckTypeCandidates: Seq[Any]"
+			],
+			[
+				"bestOther",
+				"bestOtherCandidate: Any"
+			],
+			[
+				"replace",
+				"replacementMap"
+			],
+			[
+				"can",
+				"candidateMatchers: Seq[Any]"
+			],
+			[
+				"val",
+				"validBindings: Any"
+			],
+			[
+				"maxBy",
+				"maxByOption[B](f: ((Nothing, Seq[(Int, Nothing)])) => B)(implicit cmp: Ordering[B]): Option[(Nothing, Seq[(Int, Nothing)])]"
+			],
+			[
+				"head",
+				"headOption: Option[A]"
+			],
+			[
+				"exp",
+				"exprBindings = "
+			],
+			[
+				"Expression",
+				"Expression - com.astraldb.expression"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "chapters/2-asymptotic.typ",
+			"settings":
+			{
+				"buffer_size": 25647,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Typst/Typst.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"PdfLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/User/Rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/User/rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"Traditional"
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXing/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXing/LaTeX.sublime-build",
+					"Clean up Files"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/User/Rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXing/LaTeX.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/User/Rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"XeLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/User/rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/User/Rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Ruby/Ruby.sublime-build",
+					""
+				],
+				[
+					"Packages/User/rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/rake.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Typst/Typst.sublime-build",
+					""
+				],
+				[
+					"Packages/Typst/Typst.sublime-build",
+					"Open"
+				],
+				[
+					"Packages/User/Rake.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Typst/Typst.sublime-build",
+				"Open"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"typst",
+				"Set Syntax: Typst"
+			],
+			[
+				"term",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"termi",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"code ac",
+				"LSP: Code Action"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"rust",
+				"Build With: Rust"
+			],
+			[
+				"import",
+				"LSP-metals: Build Import"
+			],
+			[
+				"reload",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"liverelo",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"pretty",
+				"Pretty JSON: Format JSON"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"restart",
+				"LSP: Restart Server"
+			],
+			[
+				"build",
+				"Build With: LaTeX - XeLaTeX"
+			],
+			[
+				"sort li",
+				"Sort Lines"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pull",
+				"Plugin Development: Profile Events"
+			],
+			[
+				"dete",
+				"LaTeXTools: Open Detexify"
+			],
+			[
+				"detex",
+				"LaTeXTools: Open Detexify"
+			],
+			[
+				"rever",
+				"File: Revert"
+			],
+			[
+				"git",
+				"Git: Pull"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"scala",
+				"Set Syntax: Scala"
+			],
+			[
+				"goto",
+				"LSP: Goto Definition…"
+			],
+			[
+				"code",
+				"LSP: Code Action…"
+			],
+			[
+				"brow",
+				"SFTP: Browse Remote…"
+			],
+			[
+				"action",
+				"LSP: Code Action…"
+			],
+			[
+				"detexi",
+				"LaTeXTools: Open Detexify"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"quick",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"latex",
+				"LaTeXTools: Check system"
+			],
+			[
+				"metals",
+				"LSP-metals: Build Import"
+			],
+			[
+				"wrap",
+				"HTML: Wrap Selection With Tag"
+			],
+			[
+				"git comm",
+				"Git: Quick Commit (current file)"
+			],
+			[
+				"add",
+				"Git: Add Current File"
+			],
+			[
+				"commi",
+				"Git: Commit"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"LOWE",
+				"Convert Case: Lower Case"
+			],
+			[
+				"preferen",
+				"Preferences: Settings"
+			],
+			[
+				"syntax text",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"preferences",
+				"Preferences: Settings"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"qui",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"uniq",
+				"Permute Lines: Unique"
+			],
+			[
+				"status",
+				"Git: Status"
+			],
+			[
+				"check",
+				"LaTeXTools: Check system"
+			],
+			[
+				"improt",
+				"LSP-metals: Build Import"
+			],
+			[
+				"sass",
+				"Set Syntax: SCSS"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Discover Packages"
+			],
+			[
+				"browspa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"latextoo",
+				"LaTeXTools: Check system"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 100.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/okennedy/Documents/Papers/Book-DataStructures",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters"
+	],
+	"file_history":
+	[
+		"/home/okennedy/.local_profile",
+		"/home/okennedy/.local_",
+		"/home/okennedy/Documents/PopLaunchUtils/src/todo.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/install.sh",
+		"/home/okennedy/.config/pop_todo.json",
+		"/home/okennedy/Documents/PopLaunchUtils/src/todo_tests.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/Cargo.toml",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Grading/input/ai_cases.txt",
+		"/home/okennedy/Downloads/c1_c2_fixes.csv",
+		"/home/okennedy/Documents/PopLaunchUtils/src/pass_menu.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/src/pass.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/src/error.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/src/main.rs",
+		"/home/okennedy/Documents/PopLaunchUtils/.git/config",
+		"/home/okennedy/Documents/PopPass/src/launcher.rs",
+		"/home/okennedy/Documents/PopPass/src/pass.rs",
+		"/home/okennedy/Documents/PopPass/src/menu.rs",
+		"/home/okennedy/Documents/PopPass/src/main.rs",
+		"/home/okennedy/Documents/PopPass/plugin.ron",
+		"/dev/shm/pass.nCCgld9p10c4p/RCcY5C-cloud.okennedy.org-xthemage.txt",
+		"/home/okennedy/Documents/PopPass/Cargo.toml",
+		"/dev/shm/pass.6KuS7rN7U6jjX/VwZCTV-cloud.okennedy.org-zachary.txt",
+		"/home/okennedy/Documents/PopPass/src/launcher/response.rs",
+		"/home/okennedy/Documents/PopPass/src/launcher/request.rs",
+		"/home/okennedy/Documents/Vizier/vizier/backend/src/info/vizierdb/spark/DataFrameOps.scala",
+		"/home/okennedy/Documents/Vizier/vizier/backend/src/info/vizierdb/commands/ExecutionContext.scala",
+		"/home/okennedy/Documents/Vizier/vizier/backend/src/info/vizierdb/spreadsheet/SpreadsheetDatasetConstructor.scala",
+		"/home/okennedy/Documents/Vizier/vizier/backend/src/info/vizierdb/spreadsheet/Spreadsheet.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/python/PythonUDFBuilder.scala",
+		"/home/okennedy/Documents/Vizier-Website/index.html",
+		"/home/okennedy/Documents/Vizier/build.sc",
+		"/home/okennedy/Documents/Vizier/vizier/resources/__init__.py",
+		"/home/okennedy/Documents/Vizier/scripts/publish.sh",
+		"/home/okennedy/Documents/Vizier/scripts/bootstrap.sh",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Honors/owenlee/Honors/build.sbt",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Honors/owenlee/Honors/src/main/scala/cse250honors/LSMIndex.java",
+		"/home/okennedy/Sync/Notes/MS_evaluations.txt",
+		"/dev/shm/pass.vcWC6alYtg9tE/OpluUK-postel.cse.buffalo.edu.txt",
+		"/dev/shm/pass.tL5DtWZVP5uCS/SWhRit-postel.cse.buffalo.edu.txt",
+		"/dev/shm/pass.uHfWj7180aaqW/ueCBV3-chargepoint.com.txt",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/catalog/Artifact.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/resources/logback.xml",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/plot/BarChart.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/BarchartEditor.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/plot/PlotUtils.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/util/Logging.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/network/BranchWatcherAPIProxy.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/catalog/Branch.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/ModuleEditor.scala",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Slides/2023-12-06-BloomFilters.tex",
+		"/home/okennedy/Documents/Administrivia/Letters/2023/Shawn-PhD.tex",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/Commands.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/export/ExportedCommand.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/export/ImportProject.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/api/ImportProject.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/catalog/Module.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/mimir/Geotag.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/mimir/geocoder/Geocode.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/Parameter.scala",
+		"/home/okennedy/Documents/Administrivia/DGS/Grad Handbook-2023/grad-handbook-2023.tex",
+		"/home/okennedy/Documents/Proposals/2023-NSF-Forms/supplements/management_coordination.tex",
+		"/home/okennedy/Documents/Proposals/2023-NSF-Forms/supplements/management_coordination.pdf",
+		"/home/okennedy/Sync/CodeSnippets/bin/250-status",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Slides/2023-11-27-SpatialIndexing.tex",
+		"/home/okennedy/Documents/Administrivia/Letters/2023/Poonam-TAMU.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Scanner/upload_to_autolab.py",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Scanner/split.sc",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Coversheets/midterm_2_covers.tex",
+		"/home/okennedy/Documents/Proposals/2023-NSF-Forms/sections/intro.tex",
+		"/home/okennedy/Documents/Proposals/2023-NSF-Forms/proposal.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Slides/2023-11-15-HashTables.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Scanner/scan.sh",
+		"/home/okennedy/Documents/Administrivia/Letters/2023/Poonam-TT.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Slides/2023-11-13-MapsAndHashTables.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Slides/2023-11-08-Review.tex",
+		"/home/okennedy/Documents/Proposals/2023-NSF-Forms/supplements/abstract.txt",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spark/ViewConstructor.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/CommandList.scala",
+		"/home/okennedy/Documents/Vizier-Devel/.metals/readonly/dependencies/spark-sql_2.12-3.3.1-sources.jar/org/apache/spark/sql/package.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/widgets/SearchWidget.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/TableOfContents.scala",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Coversheets/midterm_2_seating.txt",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/TentativeModule.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/test/src/info/vizierdb/spreadsheet/EncodedSpreadsheetSpec.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/shared/src/info/vizierdb/serialized/artifact.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/widgets/Tooltip.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/css/vizier.scss",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/artifacts/Dataset.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/dataset/TableView.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/ui/src/info/vizierdb/ui/components/dataset/RenderCell.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/shared/src/info/vizierdb/serialized/MLVector.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spreadsheet/EncodedSpreadsheet.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spreadsheet/UpdatePattern.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spreadsheet/RValueExpression.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spark/InitSpark.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/ExecutionContext.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/sql/Query.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/resources/requirements.txt",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/commands/python/PythonProcess.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spark/caveats/QueryWithCaveats.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/test/src/info/vizierdb/commands/PythonCommandSpec.scala",
+		"/home/okennedy/Documents/Vizier-Devel/vizier/backend/src/info/vizierdb/spreadsheet/SingleRowExecutor.scala",
+		"/home/okennedy/Desktop/wmspoth/Vizier-Poster/main.tex",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Coversheets/seating.py",
+		"/home/okennedy/Documents/Mimir/mimir-pip/src/org/mimirdb/Pip.scala",
+		"/home/okennedy/Documents/Mimir/mimir-pip/build.sc",
+		"/home/okennedy/Documents/Teaching/CSE-250-2023-fa/Tests/Midterm1/exam.tex",
+		"/home/okennedy/Documents/HackDB/health.csv",
+		"/home/okennedy/Documents/HackDB/akas.csv",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Query.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Join.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/HackDB.scala",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/HackDB.scala",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Parser.scala",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Join.scala",
+		"/home/okennedy/Documents/HackDB/slides/intro.tex",
+		"/home/okennedy/Documents/HackDB/voter.csv",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Result.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Type.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Expression.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Parser.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Query.scala",
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Table.scala",
+		"/home/okennedy/Documents/HackDB/build.sc",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Table.scala",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Project.scala",
+		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Plan.scala",
+		"/home/okennedy/Documents/HackDB/test.csv"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "chapters/2-asymptotic.typ",
+					"selected": true,
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 25647,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"lsp_uri": "file:///home/okennedy/Documents/Papers/Book-DataStructures/chapters/2-asymptotic.typ",
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Typst/Typst.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 209.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.LSP Log Panel":
+	{
+		"height": 0.0
+	},
+	"output.SFTP":
+	{
+		"height": 209.0
+	},
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.Terminus":
+	{
+		"height": 208.0
+	},
+	"output.diagnostics":
+	{
+		"height": 209.0
+	},
+	"output.exec":
+	{
+		"height": 204.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 108.0
+	},
+	"output.language servers":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 217.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups-dummy":
+	{
+		"height": 0.0
+	},
+	"output.references":
+	{
+		"height": 219.0
+	},
+	"pinned_build_system": "",
+	"project": "DataStructures.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"todo.",
+				"src/todo.rs"
+			],
+			[
+				"todo",
+				"src/todo.rs"
+			],
+			[
+				"spreadsheetdatao",
+				"vizier/backend/src/info/vizierdb/spreadsheet/SpreadsheetDatasetConstructor.scala"
+			],
+			[
+				"executioncon",
+				"vizier/backend/src/info/vizierdb/commands/ExecutionContext.scala"
+			],
+			[
+				"spreadsheet.sca",
+				"vizier/backend/src/info/vizierdb/spreadsheet/Spreadsheet.scala"
+			],
+			[
+				"udf",
+				"vizier/backend/src/info/vizierdb/commands/python/PythonUDFBuilder.scala"
+			],
+			[
+				"logback",
+				"vizier/resources/logback.xml"
+			],
+			[
+				"artifact.sca",
+				"vizier/backend/src/info/vizierdb/catalog/Artifact.scala"
+			],
+			[
+				"artifact.sac",
+				"vizier/backend/src/info/vizierdb/catalog/Artifact.scala"
+			],
+			[
+				"barchart",
+				"vizier/backend/src/info/vizierdb/commands/plot/BarChart.scala"
+			],
+			[
+				"barchartedi",
+				"vizier/ui/src/info/vizierdb/ui/components/BarchartEditor.scala"
+			],
+			[
+				"branch.sca",
+				"vizier/backend/src/info/vizierdb/catalog/Branch.scala"
+			],
+			[
+				"logging",
+				"vizier/ui/src/info/vizierdb/util/Logging.scala"
+			],
+			[
+				"barchartedit",
+				"vizier/ui/src/info/vizierdb/ui/components/BarchartEditor.scala"
+			],
+			[
+				"plotutil",
+				"vizier/backend/src/info/vizierdb/commands/plot/PlotUtils.scala"
+			],
+			[
+				"module",
+				"vizier/backend/src/info/vizierdb/catalog/Module.scala"
+			],
+			[
+				"import",
+				"vizier/backend/src/info/vizierdb/api/ImportProject.scala"
+			],
+			[
+				"geotag",
+				"vizier/backend/src/info/vizierdb/commands/mimir/Geotag.scala"
+			],
+			[
+				"geocode",
+				"vizier/backend/src/info/vizierdb/commands/mimir/geocoder/Geocode.scala"
+			],
+			[
+				"commands",
+				"vizier/backend/src/info/vizierdb/commands/Commands.scala"
+			],
+			[
+				"proposal.tex",
+				"proposal.tex"
+			],
+			[
+				"intro",
+				"sections/intro.tex"
+			],
+			[
+				"tentativemo",
+				"vizier/ui/src/info/vizierdb/ui/components/TentativeModule.scala"
+			],
+			[
+				"tableof",
+				"vizier/ui/src/info/vizierdb/ui/components/TableOfContents.scala"
+			],
+			[
+				"tooltip",
+				"vizier/ui/src/info/vizierdb/ui/widgets/Tooltip.scala"
+			],
+			[
+				"scss",
+				"vizier/ui/css/vizier.scss"
+			],
+			[
+				"datasetvie",
+				"vizier/ui/src/info/vizierdb/ui/components/dataset/TableView.scala"
+			],
+			[
+				"serialized/artifac",
+				"vizier/shared/src/info/vizierdb/serialized/artifact.scala"
+			],
+			[
+				"spark",
+				"vizier/backend/src/info/vizierdb/spark/InitSpark.scala"
+			],
+			[
+				"encodedspr",
+				"vizier/backend/test/src/info/vizierdb/spreadsheet/EncodedSpreadsheetSpec.scala"
+			],
+			[
+				"singlero",
+				"vizier/backend/src/info/vizierdb/spreadsheet/SingleRowExecutor.scala"
+			],
+			[
+				"pythoncomm",
+				"vizier/backend/test/src/info/vizierdb/commands/PythonCommandSpec.scala"
+			],
+			[
+				"requirem",
+				"vizier/resources/requirements.txt"
+			],
+			[
+				"query",
+				"vizier/backend/src/info/vizierdb/commands/sql/Query.scala"
+			],
+			[
+				"initspar",
+				"vizier/backend/src/info/vizierdb/spark/InitSpark.scala"
+			],
+			[
+				"join",
+				"demo/src/net/okennedy/hackdb/Join.scala"
+			],
+			[
+				"parser",
+				"src/net/okennedy/hackdb/Parser.scala"
+			],
+			[
+				"health",
+				"health.csv"
+			],
+			[
+				"voter",
+				"voter.csv"
+			],
+			[
+				"exp",
+				"src/net/okennedy/hackdb/Expression.scala"
+			],
+			[
+				"resul",
+				"src/net/okennedy/hackdb/Result.scala"
+			],
+			[
+				"filter",
+				"src/net/okennedy/hackdb/Filter.scala"
+			],
+			[
+				"proj",
+				"src/net/okennedy/hackdb/Project.scala"
+			],
+			[
+				"proje",
+				"src/net/okennedy/hackdb/Project.scala"
+			],
+			[
+				"expr",
+				"src/net/okennedy/hackdb/Expression.scala"
+			],
+			[
+				"type",
+				"src/net/okennedy/hackdb/Type.scala"
+			],
+			[
+				"expre",
+				"src/net/okennedy/hackdb/Expression.scala"
+			],
+			[
+				"vizierserver",
+				"vizier/backend/src/info/vizierdb/api/akka/VizierServer.scala"
+			],
+			[
+				"api",
+				"vizier/ui/src/info/vizierdb/ui/network/API.scala"
+			],
+			[
+				"routes",
+				"vizier/resources/vizier-routes.txt"
+			],
+			[
+				"vizier.scala",
+				"vizier/backend/src/info/vizierdb/Vizier.scala"
+			],
+			[
+				"pream",
+				"preamble.tex"
+			],
+			[
+				"main.bi",
+				"main.bib"
+			],
+			[
+				"bib",
+				"main.bib"
+			],
+			[
+				"checkpoint",
+				"vizier/backend/src/info/vizierdb/commands/data/CheckpointDataset.scala"
+			],
+			[
+				"thrust",
+				"sections/thrust_2_optimizers.tex"
+			],
+			[
+				"main",
+				"main.tex"
+			],
+			[
+				"client.py",
+				"vizier/resources/pycell/client.py"
+			],
+			[
+				"python",
+				"vizier/backend/src/info/vizierdb/commands/python/Python.scala"
+			],
+			[
+				"requi",
+				"vizier/resources/requirements.txt"
+			],
+			[
+				"pythonce",
+				"vizier/backend/test/src/info/vizierdb/commands/PythonCommandSpec.scala"
+			],
+			[
+				"config",
+				"vizier/backend/src/info/vizierdb/Config.scala"
+			],
+			[
+				"unload",
+				"vizier/backend/src/info/vizierdb/commands/data/UnloadDataset.scala"
+			],
+			[
+				"vizier.sca",
+				"vizier/backend/src/info/vizierdb/Vizier.scala"
+			],
+			[
+				"filestore",
+				"vizier/backend/src/info/vizierdb/filestore/Filestore.scala"
+			],
+			[
+				"parameter",
+				"vizier/ui/src/info/vizierdb/ui/components/parameter.scala"
+			],
+			[
+				"vega",
+				"vizier/shared/src/info/vizierdb/artifacts/VegaChart.scala"
+			],
+			[
+				"array",
+				"2023-09-20-ArrayBuffer.tex"
+			],
+			[
+				"line",
+				"vizier/backend/src/info/vizierdb/commands/plot/LineChart.scala"
+			],
+			[
+				"asympto",
+				"2023-09-08-Asymptotic-pt2.tex"
+			],
+			[
+				"asym",
+				"2023-09-06-Asymptotic.tex"
+			],
+			[
+				"buil",
+				"build.sc"
+			],
+			[
+				"viewcon",
+				"vizier/backend/src/info/vizierdb/spark/ViewConstructor.scala"
+			],
+			[
+				"scatterp",
+				"vizier/backend/src/info/vizierdb/commands/plot/ScatterPlot.scala"
+			],
+			[
+				"workf",
+				"vizier/ui/src/info/vizierdb/ui/components/Workflow.scala"
+			],
+			[
+				"injected",
+				"vizier/backend/src/info/vizierdb/spark/InjectedSparkSQL.scala"
+			],
+			[
+				"sql",
+				"vizier/backend/src/info/vizierdb/commands/transform/SQLTemplateCommand.scala"
+			],
+			[
+				"splitdata",
+				"vizier/backend/src/info/vizierdb/commands/transform/SplitDataset.scala"
+			],
+			[
+				"query.sca",
+				"vizier/backend/src/info/vizierdb/commands/sql/Query.scala"
+			],
+			[
+				"artifa",
+				"vizier/backend/src/info/vizierdb/catalog/Artifact.scala"
+			],
+			[
+				"sqltemplatecomm",
+				"vizier/backend/src/info/vizierdb/commands/transform/SQLTemplateCommand.scala"
+			],
+			[
+				"execti",
+				"vizier/backend/src/info/vizierdb/commands/ExecutionContext.scala"
+			],
+			[
+				"injec",
+				"vizier/backend/src/info/vizierdb/spark/InjectedSparkSQL.scala"
+			],
+			[
+				"index.ht",
+				"vizier/ui/html/index.html"
+			],
+			[
+				"client.p",
+				"vizier/resources/pycell/client.py"
+			],
+			[
+				"pythonpro",
+				"vizier/backend/src/info/vizierdb/commands/python/PythonProcess.scala"
+			],
+			[
+				"snipp",
+				"vizier/ui/src/info/vizierdb/ui/components/snippets/SnippetsBase.scala"
+			],
+			[
+				"clie",
+				"vizier/resources/pycell/client.py"
+			],
+			[
+				"linechar",
+				"vizier/backend/src/info/vizierdb/commands/plot/LineChart.scala"
+			],
+			[
+				"module.",
+				"vizier/ui/src/info/vizierdb/ui/components/Module.scala"
+			],
+			[
+				"moduleedit",
+				"vizier/ui/src/info/vizierdb/ui/components/ModuleEditor.scala"
+			],
+			[
+				"scatter",
+				"vizier/backend/src/info/vizierdb/commands/plot/ScatterPlot.scala"
+			],
+			[
+				"sparkva",
+				"vizier/backend/src/info/vizierdb/spark/SparkPrimitive.scala"
+			],
+			[
+				"trie",
+				"vizier/shared/src/info/vizierdb/util/Trie.scala"
+			],
+			[
+				"simplechar",
+				"vizier/backend/src/info/vizierdb/commands/plot/SimpleChart.scala"
+			],
+			[
+				"api.sc",
+				"vizier/ui/src/info/vizierdb/ui/network/API.scala"
+			],
+			[
+				"tentative",
+				"vizier/ui/src/info/vizierdb/ui/components/TentativeModule.scala"
+			],
+			[
+				"updatecell",
+				"vizier/backend/src/info/vizierdb/commands/vizual/UpdateCell.scala"
+			],
+			[
+				"sortdata",
+				"vizier/backend/src/info/vizierdb/commands/vizual/SortDataset.scala"
+			],
+			[
+				"command",
+				"vizier/backend/src/info/vizierdb/commands/Command.scala"
+			],
+			[
+				"vizualscript",
+				"vizier/backend/src/info/vizierdb/commands/vizual/Script.scala"
+			],
+			[
+				"vizier.scss",
+				"vizier/ui/css/vizier.scss"
+			],
+			[
+				"vizier.cs",
+				"out/vizier/ui/resourceDir.dest/ui/css/vizier.css"
+			],
+			[
+				"build",
+				"build.sc"
+			],
+			[
+				"module.sca",
+				"vizier/ui/src/info/vizierdb/ui/components/Module.scala"
+			],
+			[
+				"workflowspec",
+				"vizier/ui/test/src/info/vizierdb/ui/WorkflowSpec.scala"
+			],
+			[
+				"builda",
+				"vizier/ui/test/src/info/vizierdb/test/BuildA.scala"
+			],
+			[
+				"initspark",
+				"vizier/backend/src/info/vizierdb/spark/InitSpark.scala"
+			],
+			[
+				"config.sca",
+				"vizier/backend/src/info/vizierdb/Config.scala"
+			],
+			[
+				"vizier.scal",
+				"vizier/backend/src/info/vizierdb/Vizier.scala"
+			],
+			[
+				"workfl",
+				"vizier/ui/src/info/vizierdb/ui/components/Workflow.scala"
+			],
+			[
+				"vizier.css",
+				"vizier/ui/css/vizier.scss"
+			],
+			[
+				"menubar",
+				"vizier/ui/src/info/vizierdb/ui/components/MenuBar.scala"
+			],
+			[
+				"project",
+				"vizier/ui/src/info/vizierdb/ui/components/Project.scala"
+			],
+			[
+				"toast",
+				"vizier/ui/src/info/vizierdb/ui/widgets/Toast.scala"
+			],
+			[
+				"menuba",
+				"vizier/ui/src/info/vizierdb/ui/components/MenuBar.scala"
+			],
+			[
+				"table",
+				"vizier/ui/src/info/vizierdb/ui/components/TableOfContents.scala"
+			],
+			[
+				"tentati",
+				"vizier/ui/src/info/vizierdb/ui/components/TentativeModule.scala"
+			],
+			[
+				"spreadsheetmodul",
+				"vizier/ui/src/info/vizierdb/ui/components/editors/SpreadsheetModuleSummary.scala"
+			],
+			[
+				"spreadsheettoo",
+				"vizier/ui/src/info/vizierdb/ui/network/SpreadsheetTools.scala"
+			],
+			[
+				"branchsub",
+				"vizier/ui/src/info/vizierdb/ui/network/BranchSubscription.scala"
+			],
+			[
+				"asymp",
+				"2023-09-06-Asymptotic.tex"
+			],
+			[
+				"relate",
+				"sections/related.tex"
+			],
+			[
+				"unju",
+				"sections/unjustified.tex"
+			],
+			[
+				"optimi",
+				"out/astral/catalyst/rendered.dest/Optimizer.scala"
+			],
+			[
+				"express",
+				"astral/compiler/src/com/astraldb/expression/Expression.scala"
+			],
+			[
+				"typeche",
+				"astral/compiler/src/com/astraldb/typecheck/Typecheck.scala"
+			],
+			[
+				"eval",
+				"astral/compiler/src/com/astraldb/expression/Eval.scala"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 215.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
