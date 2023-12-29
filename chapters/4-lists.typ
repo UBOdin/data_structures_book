@@ -29,8 +29,8 @@ public interface MutableSequence<T>
   public int size();
 }
 ```
-`Sequence` is semantically identical to `Moof`, but far more helpful.
-Just by reading these methods, you get some idea of what each method does, and how it interacts with the state represented by a `Sequence`. 
+`Sequence` is semantically identical to `Narf`, but far more helpful.
+Just by reading the names of these methods, you get some idea of what each method does, and how it interacts with the state represented by a `Sequence`. 
 You can build a mental model of what a Sequence is from these names.
 
 An Abstract Data Type is:

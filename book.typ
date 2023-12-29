@@ -6,7 +6,7 @@
 #align(center + horizon)[
   #text(size: 40pt)[CSE 250: Data Structures]
 
-  #text(size: 20pt)[Course Reference Guide]
+  #text(size: 20pt)[Course Reference]
 ]
 
 #pagebreak() #outline()
