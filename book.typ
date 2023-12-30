@@ -1,6 +1,14 @@
 #set page(width: 8.5in, height: 11in)
 #set heading(numbering: "1.")
 #show figure.caption: strong
+#show heading: set text(navy)
+#show heading.where(level: 1): it => [
+  #set text(navy)
+  #set align(center)
+  #underline[
+    Chapter #counter(heading).display() #emph(it.body) 
+  ]
+]
 #set document(title: "CSE 250: Data Structures")
 
 #align(center + horizon)[

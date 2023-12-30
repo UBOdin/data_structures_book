@@ -519,15 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "chapters/2-asymptotic.typ",
-			"settings":
-			{
-				"buffer_size": 25647,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/Typst/Typst.sublime-build",
 	"build_system_choices":
@@ -945,12 +936,12 @@
 		"selected_items":
 		[
 			[
-				"typst",
-				"Set Syntax: Typst"
-			],
-			[
 				"term",
 				"Terminus: Toggle Panel"
+			],
+			[
+				"typst",
+				"Set Syntax: Typst"
 			],
 			[
 				"termi",
@@ -1182,10 +1173,19 @@
 	"expanded_folders":
 	[
 		"/home/okennedy/Documents/Papers/Book-DataStructures",
-		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters"
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/graphics"
 	],
 	"file_history":
 	[
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/4-lists.typ",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/3-asymptotic.typ",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/2-math.typ",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/book.typ",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/1-introduction.typ",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/.gitignore",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/DataStructures.sublime-project",
+		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/2-asymptotic.typ",
 		"/home/okennedy/.local_profile",
 		"/home/okennedy/.local_",
 		"/home/okennedy/Documents/PopLaunchUtils/src/todo.rs",
@@ -1305,19 +1305,11 @@
 		"/home/okennedy/Documents/HackDB/voter.csv",
 		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Result.scala",
 		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Type.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Expression.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Parser.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Query.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Table.scala",
-		"/home/okennedy/Documents/HackDB/build.sc",
-		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Table.scala",
-		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Project.scala",
-		"/home/okennedy/Documents/HackDB/src/net/okennedy/hackdb/Plan.scala",
-		"/home/okennedy/Documents/HackDB/test.csv"
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Expression.scala"
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -1352,48 +1344,12 @@
 		{
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "chapters/2-asymptotic.typ",
-					"selected": true,
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 25647,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"lsp_uri": "file:///home/okennedy/Documents/Papers/Book-DataStructures/chapters/2-asymptotic.typ",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Typst/Typst.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"stack_multiselect": false,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 24.0
 	},
 	"input":
 	{
@@ -1478,7 +1434,7 @@
 	"project": "DataStructures.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":

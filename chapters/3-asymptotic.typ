@@ -36,6 +36,15 @@ You'll see things like:
 These are all examples of asymptotic runtimes, and they give you a quick at-a-glance idea of how well the data structure handles specific operations.
 Knowing these facts about the data structures involved can help you plan out the algorithms you're writing, and avoid picking a data structure that tanks the performance of your algorithm.
 
+== Asymptotic Analysis in General
+
+Although our focus in this book is mainly on asymptotic *runtime* complexity, asymptotic analysis is a general tool that can be used to discuss all sorts of properties of code and algorithms.  For example:
+- How fast is an algorithm?
+- How much space does an algorithm need?
+- How much data does an algorithm read from disk?
+- How much network bandwidth will an algorithm use?
+- How many CPUs will a parallel algorithm need?
+
 == Runtime Growth Functions
 
 Let's start by talking about *Runtime Growth Functions*.  A runtime growth function looks like this:
@@ -134,10 +143,13 @@ from random import randrange
 from datetime import datetime
 N = 10000
 TRIALS = 1000
+
+#### BEGIN INITIALIZE data
 data = []
 for x in range(N):
     data += [x]
 data = list(data)
+#### END INITIALIZE data
 
 contained = 0
 start_time = datetime.now()
@@ -155,17 +167,19 @@ This code creates a list of `N` elements, and then does `TRIALS` checks to see i
 
 Now try something else.  Modify the code so that the `data` variable is initialized as:
 ```python
+#### BEGIN INITIALIZE data
 data = []
 for x in range(N):
     data += [x]
 data = set(data)
+#### END INITIALIZE data
 ```
 
 You'll find that now, as you increase `N`, the time taken *per lookup* grows at a much smaller rate.  Depending on the implementation of python you're using, this will either grow as $log N$ or only a tiny bit.  The `set` data structure is much faster at checking whether an element is present than the `list` data structure.
 
 Complexity classes are a language that we can use to capture this intuition.  We might say that `set`'s implementation of the `in` operator belongs to the *logarithmic* complexity class, while `list`'s implementation of the operator belongs to the *linear* complexity class.  Just saying this one fact about the two implementations makes it clear that, in general, `set`'s version of `in` is much better than `list`'s.  
 
-=== Formal Notation
+== Formal Notation
 
 Sometimes it's convenient to have a shorthand for writing down that a runtime belongs in a complexity class.  We write:
 
@@ -273,7 +287,7 @@ $f(N) + 5N$
 ... where $f(N) in Theta(N)$.  
 
 
-=== Code Complexity
+== Code Complexity
 
 Let's see a few examples of how we can figure out the runtime complexity class of a piece of code.
 
@@ -411,7 +425,7 @@ You can see that it looks a lot like a triangle.
 The *worst case* (top of the triangle) looks a lot like the *linear* complexity class ($Theta(N)$, or an angled line), but the *best case* (bottom of the triangle) looks a lot more like a flat line, or the *constant* complexity class ($Theta(1)$, or a flat line).  
 The runtime is _at least_ constant, and _at most_ linear: We can *bound* the runtime of the function between two complexity classes.
 
-=== Big-$O$ and Big-$Omega$
+== Big-$O$ and Big-$Omega$
 
 We capture this intuition of bounded runtime by introducing two new concepts: Worst-case (upper, or Big-$O$) and Best-case (lower, or Big-$Omega$) bounds.   
 To see these in practice, let's take the linear complexity class as an example:
@@ -442,7 +456,7 @@ To summarize, we write:
 - $f(N) in O(g(N))$ to say that $f(N)$ is in $Theta(g(N))$ or a lesser complexity class.
 - $f(N) in Omega(g(N))$ to say that $f(N)$ is in $Theta(g(N))$ or a greater complexity class.
 
-=== Formalizing Big-$O$
+== Formalizing Big-$O$
 
 Before we formalize our bounds, let's first figure out what we want out of that formalism.  
 
@@ -504,7 +518,7 @@ $f(N) in O(g(N)) <=> exists c > 0, N_0 >= 0: forall N >= N_0 : f(N) <= c dot g(N
 
 This is the same as our first attempt, with only one thing added: $N_0$.  In other words, $f(N) in O(g(N))$ if we can pick some cutoff value ($exists N_0 >= 0$) so that for every bigger value of $N$ ($N >= N_0$), $f(N)$ is smaller than $c dot g(N)$.
 
-==== Proving a function has a specific Big-$O$ bound
+=== Proving a function has a specific Big-$O$ bound
 
 To show that a mathematical function is *in* $O(g(N))$, we need to find a $c$ and an $N_0$ for which we can prove the Big-$O$ inequality.  A generally useful strategy is:
 
@@ -523,7 +537,7 @@ Continuing the above example:
 
 For that last step, we have $N_0 <= N$, or $1 <= N$, so dividing both sides by $N$, we get $1/N <= 1$.  So, if we pick $1 <= c$, then $1/N <= 1 <= c$, and $1/N <= c$.
 
-==== Proving a function does not have a specific Big-$O$ bound
+=== Proving a function does not have a specific Big-$O$ bound
 
 To show that a mathematical function is *not in* $O(g(N))$, we need to prove that there can be *no* $c$ or $N_0$ for which we can prove the Big-$O$ inequality.  A generally useful strategy is:
 
@@ -541,7 +555,7 @@ Flipping the above example:
 $N$ is strictly growing: for bigger values of $N$, it gets bigger.  There is no constant that can upper bound the mathematical function $N$.  
 
 /////////////////////////////////////////////
-=== Formalizing Big-$Omega$
+== Formalizing Big-$Omega$
 
 Now that we've formalized Big-$O$ (the upper bound), we can formalize Big-$Omega$ (the lower bound) in exactly the same way: 
 
@@ -551,7 +565,7 @@ The only difference is the direction of the inequality: To prove that a function
 
 
 /////////////////////////////////////////////
-=== Formalizing Big-$Theta$
+== Formalizing Big-$Theta$
 
 Although we started with an intuition for Big-$Theta$, we haven't yet formalized it.  To understand why, let's take a look at the following runtime:
 
@@ -602,7 +616,7 @@ The new thing is that we've shown that the upper and lower bounds *are the same*
 That is, we've shown that $T(N) in O(g(N))$ and $T(N) in Omega(g(N))$ *for the same mathematical function $g$*.  
 If we can prove that an upper and lower bound for some mathematical function $f(N)$ that is the same mathematical function $g(N)$, we say that $f(N)$ and $g(N)$ are in the same complexity class.  Formally, $f(N) in Theta(g(N))$ if and only if $f(N) in O(g(N))$ *and* $f(N) in Omega(g(N))$. 
 
-=== Tight Bounds
+== Tight Bounds
 
 In the example above, we said that $"rand"(10) <= 10$.  
 We could have just as easily said that $"rand"(10) <= 100$.  
@@ -620,6 +634,40 @@ If it is not possible to obtain a better Big-$O$ or Big-$Omega$ bound, we say th
 
 Note that since we define Big-$Theta$ as the intersection of Big-$O$ and Big-$Omega$, all Big-$Theta$ bounds are, by definition tight.
 As a result, we sometimes call Big-$Theta$ bounds "tight bounds".
+
+== Which Variable?
+
+We define asymptotic complexity bounds in terms of *some* variable, usually the size of the collection $N$.  However, it's also possible to use other bounds.  For example, consider the function, which computes factorial:
+```java
+public int factorial(int idx)
+{
+  if(idx <= 0){ return 0; }
+  int result = 1;
+  for(i = 1; i <= idx; i++) { result *= i; }
+  return result
+}
+```
+The runtime of this loop depends on the input parameter `idx`, performing one math operation for each integer between 1 and `idx`.
+So, we could give the runtime as $Theta("idx")$.
+
+When the choice of variable is implicit, it's customary to just use $N$, but this is not always the case.
+For example, when we talk about sequences and lists, the size of the sequence/list is most frequently the variable of interest.
+However, there might be other parameters of interest:
+- If we're searching the list for a specific element, what position to we find the element at?
+- If we're looking through a linked list for a specific element, what index are we looking for?
+- If we have two or more lists (e.g., in an Edge List data structure), each list may have a different size.
+
+In these cases, and others like them, it's important to be clear about which variable you're talking about.  
+
+=== Related Variables
+
+When using multiple variables, we can often bound one variable in terms of another.  Examples include:
+
+- If we're looking through a linked list for the element at a specific index, the index must be somewhere in the range $[0, N)$, where $N$ is the size of the list.  As a result, we can can always replace $O("index")$ with $O(N)$ and $Omega("index")$ with $Omega(1)$, since `index` is bounded from above by a linear function of $N$ and from below by a constant. 
+
+- The number of edges in a graph can not be more than the square of the number of vertices.  As a result, we can always replace $O("edges")$ with $O("vertices"^2)$ and $Omega("edges")$ with $Omega(1)$.
+
+*Note*: Even though $O("index")$ in the first example may be a tighter bound than $O(N)$, the $O(N)$ bound is still tight *in terms of $N$*: We can not obtain a tighter bound that is a function only of $N$.
 
 == Summary
 
@@ -644,6 +692,56 @@ For any two functions $f(N)$ and $g(N)$ we say that:
 
 Note that a simple $Theta(g(N))$ may not exist for a given $f(N)$, specifically when the tight Big-$O$ and Big-$Omega$ bounds are different.
 
+=== Interpreting Code
+
+In general#footnote[
+  All of these are lies.  The cost of basic arithmetic is often $O(log N)$, array access runtimes are affected by caching (we'll address that later in the book), and string operations are proportional to the length of the string.  However, these are all useful simplifications for now.
+], we will assume that most simple operations: basic arithmetic, array accesses, variable access, string operations, and most other things that aren't function calls will all be $Theta(1)$.
+
+Other operations are combined as follows...
+
+*Sequences of instructions*
+```java
+{
+  op1;
+  op2;
+  op3;
+}
+...
+```
+Sum up the runtimes.
+$T(N) = T_("op1")(N) + T_("op2")(N) + T_("op3")(N) + ...$
+
+*Loops*
+```java
+for(i = min; i < max; i++)
+{
+  block;
+}
+```
+Sum up the runtimes for each iteration.  Make sure to consider the effect of the loop variable on the runtime of the inner block.
+$T(N) = sum_(i="min")^"max" T_("block")(N, i)$
+
+As a simple shorthand, if (i) the number of iterations is predictable (e.g., if the loop iterates $N$ times) and (ii) the complexity of the loop body is independent of which iteration the loop is on (i.e., $i$ does not appear in the loop body), you can just multiply the complexity of the loop by the number of iterations.
+
+*Conditionals*
+```java
+if(condition){
+  block1;
+} else {
+  block2;
+}
+```
+The total runtime is the cost of either `block1` or `block2`, depending on the outcome of `condition`.  Make sure to add the cost of evaluating `condition`.
+
+$T(N) = T_"condition"(N) + cases(
+  T_("block1")(N) "if" "condition is true",
+  T_("block2")(N) "otherwise"
+)$
+
+The use of a cases block is especially important here, since if $T_("block1")(N)$ and $T_("block2")(N)$ belong to different asymptotic complexity classes, the overall block of code belongs to multiple classes (and thus does not have a simple $Theta$ bound).
+
+
 === Simple Complexity Classes
 
 We will refer to the following specific complexity classes:
@@ -659,10 +757,39 @@ These complexity classes are listed in order.
 
 === Dominant Terms
 
-In general, any function that is a sum of simpler functions will be dominated by one of its terms.  That is:
+In general, any function that is a sum of simpler functions will be dominated by one of its terms.  That is, for a polynomial:
 
 $f(N) = f_1(N) + f_2(N) + ... + f_k(N)$
 
-The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, and its Big-$Theta$ bound, if it exists) will be the *greatest* complexity of any individual term $f_i(N)$.
+The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, and its Big-$Theta$ bound, if it exists) will be the *greatest* complexity of any individual term $f_i(N)$#footnote[
+  Note that this is only true when $k$ is fixed.  If the number of polynomial terms depends on $N$, we need to consider the full summation.
+].
 
+*Remember*: If the dominant term in a polynomial belongs to a single simple complexity class, then the entire polynomial belongs to this complexity class, and the Big-$O$, Big-$Omega$, and Big-$Theta$ bounds are all the same.
 
+== Multiclass Asymptotics
+
+A mathematical function may belong to multiple simple classes, depending on an unpredictable input or the state of a data structure.  
+Generally, multiclass functions arise in one of two situations.
+First, the branches of a conditional may have different complexity classes:
+
+$T(N) = cases(
+  T_(1)(N) "if" "a thing is true"
+  T_(2)(N) "otherwise"
+)$
+
+If $T_(1)(N)$ and $T_(2)(N)$ belong to different complexity classes, then $T(N)$ as a whole belongs to *either* class. 
+In this case, we can only bound the runtime $T(N)$.
+Specifically, if $Theta(T_(1)(N)) > Theta(T_(2)(N))$, then:
+- $T(N) in Omega(T_(2)(N))$
+- $T(N) in O(T_(1)(N))$.
+
+Second, the number of iterations of a loop may depend on an input that is bounded by multiple complexity classes.  For example, if $"idx" in [1, N]$ (`idx` is somewhere between $1$ and $N$, inclusive), then the following code does not belong to a single complexity class:
+```java
+for(i = 0; i < idx; i++){ do_a_thing(); }
+```
+In this case, we can bound the runtime based on `idx`.  Assuming `do_a_thing()` is $Theta(1)$, then $T(N) in Theta("idx")$.  However, since we can't bound `idx` in terms of $N$, then we can only provide weaker bounds with respect to $N$:
+- $T(N) in Omega(1)$
+- $T(N) in O(N)$
+
+Remember that if we can not obtain identical, tight upper and lower bounds in terms of a given input variable, there is no simple $Theta$-bound in terms of that variable.

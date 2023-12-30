@@ -61,7 +61,9 @@ What are some commonalities in these examples?
 - Every element (or occurrence of an element) is assigned to an index: $0 <= "index" < N$.
 - Every index in the range $0 <= "index" < N$ has exactly one element assigned to it.
 
-What kind of operations can we do on a sequence?
+What kind of operations can we do on a sequence#footnote[
+  Note: Although several of the ADTs and data structures we'll present throughout this book correspond to actual Java interfaces and classes, `Sequence` is *not* one of them.  However, it serves as a useful introduction to the `List` interface that we'll encounter later on.
+]?
 ```java
 public interface Sequence<T>
 {
@@ -204,7 +206,9 @@ Since there's no way to modify the array through the `Sequence` interface, the c
 The Fibonacci sequence and the English alphabet are examples of *immutable* sequences: Sequences that are pre-defined and can not be changed.  
 However, there's technically nothing stopping us from just modifying the bytes of an array's element.
 We can make our `Sequence` ADT a little more general by adding a way to modify its contents.  
-We call the resulting ADT a `MutableSequence`.
+We call the resulting ADT a `MutableSequence`#footnote[
+  Note: Like `Sequence`, the `MutableSequence` is not a thing in Java.  Its role is subsumed by `List`, which we'll discuss shortly.
+].
 
 ```java
 public interface MutableSequence<T> extends Sequence<T>
@@ -239,5 +243,124 @@ Note how we initialize the `Array` to a specified size instead of bringing in an
 ////////////////////////////////////////////
 == The List ADT
 
+Although we can change the individual elements of an array, once it's allocated, the size of the array is fixed.  
+This is reflected in the `MutableSequence` ADT, which does not provide a way to change the sequence's size.
+Let's design our next ADT by considering how we might want to change an array's size:
+
+- Inserting a new element at a specific position
+- Removing an existing element at a specific position 
+
+It's sometimes convenient to treat inserting at/removing from the front and end of the sequence as special cases, since these are both particularly common operations.
+
+We can summarize these operations in the `List` ADT#footnote[
+  See Java's #link("https://docs.oracle.com/javase/8/docs/api/java/util/List.html")[List interface].
+]:
+
+```java
+public interface List<T> extends MutableSequence<T>
+{
+  /** Append an element to the list */
+  public void add(T element);
+  /** Insert an element at an arbitrary position */
+  public void add(int index, T element);
+  /** Remove an element at a specific index */
+  public void remove(int index);
+  // ... and more operations that are not relevant to us at the moment.
+}
+```
+
+=== A simple Array as a List
+
+We can still use `Array`s to implement the `List` ADT, but doing so isn't cheap.  
+Since we can't change the size of an `Array` once it's allocated#footnote[
+  The "C" language has a method called `realloc` that can *sometimes* change the size of an array... if you're lucky and the allocator happens to have some free space right after the array.
+  However, in this book we try to avoid relying purely on unconstrained luck.
+], we'll need to allocate an entirely new array to store the updated list.
+Once we allocate the new array, we'll need to copy over everything in our original array to the new array.
+
+```java
+public class SimpleArrayAsList<T> extends MutableArraySequence implements List<T>
+{
+  // data, get, update, size() inherited from MutableArraySequence
+
+  public void add(T element){ add(size(), element); }
+  public void add(int index, T element)
+  {
+    // Skipped: Check that index is in-bounds.
+    T[] newData = new data[size() + 1];
+    for(i = 0; i < newData.size; i++){
+      if(i < index){ newData[i] = data[i]; }
+      else if(i == index){ newData[i] = element; }
+      else { newData[i] = data[i-1]; }
+    }
+    data = newData;
+  }
+  public void remove(int index)
+  {
+    // Skipped: Check that index is in-bounds.
+    T[] newData = new data[size() - 1];
+    for(i = 0; i < newData.size; i++){
+      if(i < index){ newData[i] = data[i]; }
+      else { newData[i] = data[i+1]; }
+    }
+  }
+}
+```
+
+Let's look at the runtime of the `add` method:
+- We'll assume that memory allocation is constant-time ($Theta(1)$)#footnote[
+  Lies!  Lies and trickery!  Memory allocation may require zeroing pages, multiple calls into the kernel, page faults, and a whole mess of other nonsense that scale with the size of the memory allocated.  Still, especially for our purposes here, it's usually safe to assume that the runtime of memory allocation is a bounded constant.
+].
+- We already said that array updates and math operations are constant-time ($Theta(1)$)
+
+So, we can view the the `add` method as
+```java
+public void add(int index, T element)
+{
+  /* Theta(1) */
+  for(i = 0; i < newData.size; i++)
+  {
+    /* Theta(1) */
+  }
+}
+```
+
+Recalling how we use $Theta$ bounds in an arithmetic expression, we can rewrite the runtime and simplify it as:
+
+- $T_"add"(N) = Theta(1) + sum_(i = 0)^"newData.size" Theta(1)$
+- $ = Theta(1) + sum_(i = 0)^(N+1) Theta(1)$ (`newData` is one bigger than the original $N$)
+- $ = Theta(1) + (N+2) dot Theta(1)$ (Plugging in the formula for summation of a constant)
+- $ = Theta(1+N+2)$ (Merging $Theta$s)
+- $ = Theta(N)$ (Dominant term)
+
+The runtime of the `remove` method can similarly be computed as $Theta(N)$.
+
+== Linked Lists
+
+$Theta(N)$ is not a particularly good runtime for simple "building block" operations like `add` and `remove`.  
+Since these will be called in loops, the `Array` data structure is not ideal for situations where a `List` is required.
+
+The main difficulty with the `Array` is that memory allocation happens at the granularity of the entire list: A single _chunk_ of allocated memory holds all elements in the list.
+So, instead of allocating one chunk for the entire list, we can go to the opposite extreme and give each element its own chunk.
+
+Giving each element its own chunk of memory makes allocating space for new elements (or releasing space for removed elements) easy, since we can do so without copying anything.
+However, it also means that the elements of the list are scattered throughout RAM.
+If we want to be able to find the $i$th element of the list (which we need to do to implement `get`), we need some way to keep track of where the elements are stored.
+One approach would be to keep a list of all $N$ addresses somewhere, but this brings us back to our original problem: we need to be able to store a variable-size list of $N$ elements.
+
+Another approach is to use the chunks of memory as part of our lookup strategy: We can have each chunk of memory that we allocate store the address of (i.e., a pointer to) the *next* element in the list.  
+That way, we only need to keep track of a single address: the position of the *first* element of the list (also called the list head).
+The resulting data structure is called a linked list.
+@linked_list_vs_array contrasts the linked list approach with an `Array`.
+
+#figure(
+  image("graphics/lists-memory-linkedlist.svg", width: 50%),
+  caption: [
+    Instead of allocating a fixed unit of memory like an array, a linked list consists of chunks of memory scattered throughout RAM.  Each element gets one chunk that has a pointer to the next (and/or previous) element in the sequence.
+  ]
+) <linked_list_vs_array>
 
 
+
+
+=== Doubly Linked Lists
