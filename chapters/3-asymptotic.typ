@@ -767,7 +767,7 @@ The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, a
 
 *Remember*: If the dominant term in a polynomial belongs to a single simple complexity class, then the entire polynomial belongs to this complexity class, and the Big-$O$, Big-$Omega$, and Big-$Theta$ bounds are all the same.
 
-== Multiclass Asymptotics
+=== Multiclass Asymptotics
 
 A mathematical function may belong to multiple simple classes, depending on an unpredictable input or the state of a data structure.  
 Generally, multiclass functions arise in one of two situations.

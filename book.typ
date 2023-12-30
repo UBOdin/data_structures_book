@@ -5,6 +5,7 @@
 #show heading.where(level: 1): it => [
   #set text(navy)
   #set align(center)
+  #pagebreak() 
   #underline[
     Chapter #counter(heading).display() #emph(it.body) 
   ]
@@ -17,12 +18,12 @@
   #text(size: 20pt)[Course Reference]
 ]
 
-#pagebreak() #outline()
+#outline()
 
-#pagebreak() #include "chapters/1-introduction.typ"
-#pagebreak() #include "chapters/2-math.typ"
-#pagebreak() #include "chapters/3-asymptotic.typ"
-#pagebreak() #include "chapters/4-lists.typ"
+#include "chapters/1-introduction.typ"
+#include "chapters/2-math.typ"
+#include "chapters/3-asymptotic.typ"
+#include "chapters/4-lists.typ"
 // Chapter 5: Recursion, Divide and Conquer, Average Runtime
 // Chapter 6: The Stacks and Queue ADTs
 // Chapter 7: The Graph ADT and Graph Traversal
