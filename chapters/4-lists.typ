@@ -893,6 +893,57 @@ $T_("add")("index") = cases(
 
 As before, $Theta("index") in O(N)$ and $Theta("index") in Omega(1)$
 
+==== Linked List `remove`
+#figure(
+  cetz.canvas({
+    import cetz.draw: *
+    scale(0.5)
+
+    linked_list_head((0,0), (3,0))
+    linked_list( (
+      ((3,  0), "M", (6,  0)), 
+      ((6,  0), "o", none), 
+      ((9,  0), "o", (12, 0)), 
+      ((12, 0), "f", (15, 0)), 
+      ((15, 0), ".", none)
+    ) )
+    for (idx) in (1, 2) {
+      let edge = (idx * 3, 0)
+      arc((rel: (0, 1), to: edge), start: 45deg, stop: 135deg, radius: 2, stroke: blue)
+      mark((rel: (-0.5, 1.5), to: edge), (rel: (0, 1), to: edge),  symbol: ">", stroke: blue, fill: blue)
+      mark_step((rel: (-1, 2.2), to: edge), [#(idx - 1)])
+    }
+    linked_list_pointer( (6, 0), (9, 0), color: gray)
+    arc((12, 0), start: -45deg, stop: -147deg, radius: 2.9, stroke: blue)
+    mark((11.5, -0.5), (12, 0),  symbol: ">", stroke: blue, fill: blue)
+    mark_step((12.5, -0.75), 2)
+  }),
+  caption: "Removing the element at index 2 from the linked list representing the list ['M', 'o', 'o', 'f', '.'].  After removal, the linked list represents the list ['M', 'o', 'f', '.']"
+)
+
+As with `add`, we can benefit from the relative positioning of linked list nodes by simply moving a `next` reference to skip over the removed linked list node.
+
+```java
+  public void remove(int index)
+  {
+    if(index < 0){ throw new IndexOutOfBoundsException() }
+    if(head.isEmpty){                    /* Case 1: Initially empty list */
+      throw new IndexOutOfBoundsException();
+    } else if(index == 0){               /* Case 2: Deletion from head */
+      head = head.get().next;
+    } else {                             /* Case 3: Deletion elsewhere */
+      Option<Node> currentNode = head;
+      for(i = 0; i < index-1; i++){
+        if(currentNode.isNone){ throw new IndexOutOfBoundsException() }
+        currentNode = currentNode.get().next;
+      }
+      if(currentNode.isNone){ throw new IndexOutOfBoundsException() }
+      currentNode.next = currentNode.get().next;
+    }
+  }
+```
+
+The proof of correctness and `remove`'s runtime of $Theta("index")$ are left as an exercise for the reader.
 
 ==== Linked List `size` (Take 1)
 
