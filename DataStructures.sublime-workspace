@@ -1172,12 +1172,12 @@
 	},
 	"expanded_folders":
 	[
-		"/home/okennedy/Documents/Papers/Book-DataStructures",
-		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters",
-		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/graphics"
+		"/home/purism/Documents/Papers/Book-Datastructures",
+		"/home/purism/Documents/Papers/Book-Datastructures/chapters"
 	],
 	"file_history":
 	[
+		"/home/purism/Documents/Papers/Book-Datastructures/chapters/4-lists.typ",
 		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/4-lists.typ",
 		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/3-asymptotic.typ",
 		"/home/okennedy/Documents/Papers/Book-DataStructures/chapters/2-math.typ",
@@ -1304,12 +1304,11 @@
 		"/home/okennedy/Documents/HackDB/slides/intro.tex",
 		"/home/okennedy/Documents/HackDB/voter.csv",
 		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Result.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Type.scala",
-		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Expression.scala"
+		"/home/okennedy/Documents/HackDB/demo/src/net/okennedy/hackdb/Type.scala"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 66.0
 	},
 	"find_in_files":
 	{
@@ -1323,6 +1322,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"value",
+			"fibbo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1349,7 +1350,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 24.0
+		"height": 58.0
 	},
 	"input":
 	{
@@ -1434,7 +1435,7 @@
 	"project": "DataStructures.sublime-project",
 	"replace":
 	{
-		"height": 44.0
+		"height": 112.0
 	},
 	"save_all_on_build": true,
 	"select_file":
