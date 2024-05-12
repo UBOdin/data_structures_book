@@ -1121,7 +1121,320 @@ In exchange, the asymptotic runtime complexity of `size` drops from $Theta(N)$ t
 To summarize, the asymptotic runtime complexity of all the other operations stays the same, and `size`'s asymptotic runtime complexity drops massively.
 This is almost always a worthwhile trade.
 
-== Iterators
+== The Iterator ADT
+
+In the next section, we'll introduce a new type of abstract data type called the Iterator (sometimes called a 'Cursor').
+Iterators are a little unique as far as this class goes, in that they represent something a bit different from a collection.
+They represent a loop over the elements of a collection.
+The ability to abstractly loop over the elements of a collection is really useful for keeping the abstraction layer around our other collection types, as we'll see shortly.
+We'll start with a motivating example.
+
+=== Motivation: Summing up Integers
+
+Have a look at the following code, which takes a `List` of `Integer`s and computes their sum.  Before you read on, try to work out the code's runtime for yourself.
+
+```java
+  public int computeSum(List<Integer> list)
+  {
+    int sum = 0;
+    for(i = 0; i < list.size(); i++)
+    {
+      sum += list.get(i);
+    }
+    return sum;
+  }
+```
+
+Seriously, stop reading and figure out the code's runtime before you read on.
+
+I mean it.  Did you figure it out yet?
+
+Ok... if you read on without figuring it out for yourself, you're cheating yourself of a learning experience.  You've been warned thrice.
+
+Using our normal technique of replacing primitive operations would lead you to a runtime of $Theta(N)$, but this is actually not correct.  
+We're allowed to replace *primitive* operations with $Theta(1)$.  
+However, this particular block of code relies on two non-primitive operations: the block of code invokes `list.size()` and `list.get()`.  
+For these, instead of $Theta(1)$, we need to "plug in" the runtime complexities that we computed before.
+
+But what is the runtime complexity of these operations?  
+To answer that question, we need to know which `List` data structure we're using.
+For arrays, which store the size explicitly, the `size` operation is $Theta(1)$.
+For linked lists, our first attempt was a `size` operation that was $Theta(N)$, but then we came up with an optimization that got us down to $Theta(1)$.
+So:
+
+$T_("size")(N) = cases(
+  Theta(1) "if using an array",
+  Theta(1) "if using a linked list",
+) = Theta(1)$
+
+Since all cases are the same, it doesn't matter which structure we're using, `size` is always $Theta(1)$.
+However, the same isn't true for `get`.  Recall that for the linked list, the cost of `get` depends on the index.
+
+$T_("get")("index") = cases(
+  Theta(1) "if using an array",
+  Theta("index") "if using a linked list",
+)$
+
+Since there are two possibilities here, we can't define a simple theta bound for `get`, but we can provide upper and lower bounds $O("index")$ and $Omega(1)$.
+Let's plug this all into our code and see what we get:
+
+```java
+  public int computeSum(List<Integer> list)
+  {
+    /* Theta(1) */
+    for(i = 0; i < list.size(); i++)
+    {
+      /* Theta(1) + T_get(i) */
+    }
+    return /* Theta(1) */;
+  }
+```
+
+Since we don't have a (simple) tight bound for $T_("get")(i)$, we can switch to using both upper and lower bounds.  Remember that wherever you see $Theta(f(N))$, it means that $f(N)$ is *both* an upper and a lower bound, so we can always replace $Theta(f(N))$ in an arithmetic expression, with $O(f(N))$ or $Omega(f(N))$.
+Solving for the upper bound first, we get: 
+- $T_("computeSum")(N) = O(1) + (sum_(i=0)^N O(1) + T_("get")(i)) + O(1)$
+- $= O(1) + (sum_(i=0)^N O(1) + O(i)) + O(1)$
+- $= O(1) + (sum_(i=0)^N O(i)) + O(1)$
+- $= O(1) + (sum_(i=0)^N i dot O(1)) + O(1)$
+- $= O(1) + O(1) dot (sum_(i=0)^N i) + O(1)$
+- $= O(1) + O(1) dot (frac(N dot (N+1), 2)) + O(1)$
+- $= O(1) + O(1) dot (N^2/2 + N/2) + O(1)$
+- $= O(1) + O(N^2/2 + N/2) + O(1)$
+- $= O(1) + O(N^2) + O(1)$
+- $= O(N^2)$
+
+And then for the lower bound:
+- $T_("computeSum")(N) = Omega(1) + (sum_(i=0)^N Omega(1) + T_("get")(i)) + Omega(1)$
+- $= Omega(1) + (sum_(i=0)^N Omega(1) + Omega(1)) + Omega(1)$
+- $= Omega(1) + (sum_(i=0)^N Omega(1)) + Omega(1)$
+- $= Omega(1) + Omega(1) dot (sum_(i=0)^N 1) + Omega(1)$
+- $= Omega(1) + Omega(1) dot (N - 0 + 1) + Omega(1)$
+- $= Omega(1) + Omega(N + 1) + Omega(1)$
+- $= Omega(1) + Omega(N) + Omega(1)$
+- $= Omega(N)$
+
+So `computeSum` will take *at least* linear time, but could take as much as quadratic time!
+
+If we work our way backwards through the summation, the limiting factor seems to be $T_"get"$.  
+If $T_"get"$ were constant-time, for example if we were certain that `list` was an array, we could re-do the summations with $T_("get") = O(1)$.
+Try it yourself, and you'll see that the upper bound on the runtime works out to $O(N)$.  
+This is *much* better.  As we saw in the last chapter, for a sufficiently large list, quadratic to linear can be the difference between an algorithm that takes seconds, and one that takes hours.
+
+So, how do we fix it?
+One strategy might be to observe that you can loop over the elements of a linked list *much* faster if you have some insight into the list's structure.
+Instead of using a loop variable `i`, you can use a pointer to the 'current' node:
+
+```java
+  public int computeSumOfLinkedList(LinkedList<Integer> list)
+  {
+    int sum = 0;
+    for(list.Node currentNode = list.head;
+        currentNode.isPresent();
+        currentNode = currentNode.get().next)
+    {
+      sum += currentNode.get().value;
+    }
+    return sum;
+  }
+```
+
+In this version of the algorithm, every operation is primitive.
+Note that the algorithm looks almost identical to that of `size` (take 1).  
+The proof that this this algorithm also runs $Theta(N)$ is similar, and is left as an exercise for the reader.
+Most importantly, the $Theta(N)$ we get from this algorithm is much better than the $O(N^2)$ we got from the "generic" version of the algorithm that we saw at the start of the section.
+However, this improved performance comes at a steep cost: The new algorithm is specialized to linked lists.
+If we need to change to a different data structure (e.g., the Buffered Array that we'll introduce shortly), then we have to rewrite the summation algorithm from scratch.
+
+=== Abstracting Loops
+
+The motivating problem goes beyond just computing sums: *Any* loop over the elements of a linked list using `get` is going to have an $O(N^2)$ runtime. 
+We can play a similar trick, looping over the linked list nodes instead of the index, for any loop.
+However, doing so requires us to know that we're working with a linked list.
+So let's dig a little deeper.
+
+To move from one index to the next, the generic linked list loop simply increments $i$ to $i+1$ (a constant-time operation).
+For the array, where the index is sufficient to find the value in constant time, the overall cost of stepping from one element of the list to the next is constant.
+However, for a linked list, going from an index to a value is a linear-time operation, since we need to find the node corresponding to the index.
+The 'trick' underlying the specialized linked list version of the loop, is that moving from a linked list *node* to the `next` node can be done in constant time.
+The structure of the loop is the same, but instead of using an index $i$, we use a node reference.
+
+Looking at the commonalities between `computeSum` and `computeSumOfLinkedList`, the following code structure is common to both:
+
+```java
+  public void computeSumV2(List<Integer> list)
+  {
+    int sum = 0;
+    for( PositionType i = list.firstPosition();
+         i.isNotAtEnd();
+         i.moveToNext())
+    {
+      sum += i.getValue();
+    }
+  }
+```
+
+This code structure includes five placeholders: 
+1. The type of the position reference (`PositionType`).
+2. A way to initialize the position reference to the first element (`firstPosition`).
+3. A way to test whether there are more positions left to visit (`isNotAtEnd`)
+4. A way to move to the next position (`moveToNext`)
+5. A way to get the value at the current position (`value`)
 
 
-== Doubly Linked Lists
+#table(
+  columns: 3,
+  inset: 10pt,
+  align: horizon,
+  stroke: none,
+
+  table.header(
+    [],
+    table.vline(),
+    `computeSum`,
+    `computeSumOfLinkedList`,
+  ),
+  table.hline(),
+  [`PositionType`],
+    `int`,
+    `list.Node`,
+  [`firstPosition`],
+    `0`,
+    `list.head`,
+  [`isNotAtEnd`],
+    `i < N`,
+    `i.isPresent()`,
+  [`moveToNext`],
+    `i += 1`,
+    `i = i.get().next`,
+  [`getValue`],
+    `list.get(i)`,
+    `i.get().value`,
+)
+
+=== The Iterator ADT
+
+The `Iterator` abstract data type, abstractly models the position of a loop in a list, providing the five operations named above.
+Each language models the idea of an iterator slightly differently, but in Java, the `Iterator` interface looks like:
+
+```java
+public interface Iterator<E>
+{
+  /** 
+   * Returns true if there are more values to retrieve
+   * (The `isAtEnd` of our example above)
+   */
+  public boolean hasNext();
+  /**
+   * Retrieves the next element and advances the iterator
+   * to the next position.
+   * (Combines `moveToNext` and `getValue` from our example)
+   */
+  public E next();
+
+  /* A few other methods that aren't relevant yet */
+}
+```
+
+To initialize the iterator, the `List` interface defines an `iterator` method that returns an iterator pointing to the first position (`firstPosition` in our example).
+Plugging this into our template pattern, we get:
+
+```java
+  public void computeSumWithIterators(List<Integer> list)
+  {
+    int sum = 0;
+    for( Iterator<Integer> i = list.iterator();
+         i.hasNext();
+         /* next() automatically advances the iterator */)
+    {
+      sum += i.next();
+    }
+    return sum;
+  }
+```
+
+
+==== Case Study: Array Iterator
+
+To build an iterator, we can look at the table above and plug in the corresponding operations for `hasNext` and `next`. 
+For the array, this means using the index. 
+
+```java
+public class SimpleArrayIterator<T> extends Iterator<T>
+{
+  SimpleArrayAsList<T> array;
+  int i = 0;
+
+  /** `firstPosition` */
+  public this(SimpleArrayAsList<T> array) { this.array = array }
+  /** `isNotAtEnd` */
+  public boolean hasNext() { return i < array.size; }
+  /** `getValue` and `moveToNext` */
+  public T next() { 
+    T currentValue = array.get(i);
+    i += 1; 
+    return currentValue; 
+  }
+}
+```
+
+==== Case Study: Linked List Iterator
+For the linked list, this means using the linked list node.
+
+```java
+public class SinglyLinkedListIterator<T> extends Iterator<T>
+{
+  Optional<Node> currentNode;
+
+  /** `firstPosition` */
+  public this(SinglyLinkedList<T> list) { this.currentNode = list.head; }
+  /** `isNotAtEnd` */
+  public boolean hasNext() { return currentNode.isPresent(); }
+  /** `getValue` and `moveToNext` */
+  public T next() { 
+    T currentValue = currentNode.get().value;
+    currentNode = currentNode.get().next;
+    return currentValue; 
+  }
+}
+```
+
+=== Summation Runtime with Iterators
+
+Note that, each of these implementations use exclusively primitive operations.
+As a result, both iterators' initialization, `hasNext` and `next` are constant-time.
+Returning to the iterator-based implementation of `computeSum`, we can figure out the runtime:
+
+```java
+  public void computeSumWithIterators(List<Integer> list)
+  {
+    /* Theta(1) */
+    for( /* Theta(1) */;
+         /* Theta(1) */;
+         )
+    {
+      /* Theta(1) */
+    }
+    return /* Theta(1) */
+  }
+```
+
+This gives us a runtime of:
+
+$T_("computeSumWithIterators")(N) = Theta(1) + (sum_{i = 0}^{N-1} Theta(1) ) + Theta(1) = Theta(N)$
+
+*Important Note*: Using iterators, we get the same $Theta(N)$ runtime for a loop over a list, but *without having to specialize the loop implementation*.  
+Abstracting the iteration variable into an iterator makes the code far more flexible, since we can swap in *any* list for the algorithm and still, in principle, get the best possible performance.
+
+=== List Access by Reference
+
+Iterators are 
+
+
+
+
+== Doubly Linked List
+
+== Buffered Arrays (Array List, take 2)
+
+
+== Recap

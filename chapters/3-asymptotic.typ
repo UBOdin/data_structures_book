@@ -80,7 +80,7 @@ We're going to take algorithms (including algorithms that perform specific opera
 ].
 
 @linlog_plot shows three different runtime growth functions: Green (dashed), Red (solid), and Blue (dash-dotted).  
-For an input of size $N = 2$, the green dashed function appears to be the best, while the blue dash-dotted function appears the worst.  
+For an input of size $N = 2$, the green dashed function appears to run the fastest (the best), while the blue dash-dotted function is the slowest (worst).
 By the time we get to $N = 10$, the roles have reversed, and the blue dash-dotted function is the best.
 
 #{
@@ -215,7 +215,7 @@ Here are some of the more common complexity classes that we'll encounter through
   ]
 )
 
-Complexity classes are given in order.  The later they appear in the list, the faster they grow.  
+This list of complexity classes is presented in a specific order.  The later a class appears in the list above, the faster a function in the class grows.  
 Any function that has a *linear* shape, will always be smaller (for big enough values of $N$) than a function with a *loglinear* shape.
 
 === Polynomials and Dominant Terms
@@ -239,7 +239,7 @@ What complexity class does $10N + N^2$ fall into?  Let's plot it and see:
     (100%, 25%),
     stroke: (paint: red, thickness: 2pt),
     markings: [],
-    caption: [Comparing $N$ (solid red), $N^2$ (dashed green), and $10N+N^2$ (dash-dotted blue)]
+    caption: [Comparing $10N$ (solid red), $N^2$ (dashed green), and $10N+N^2$ (dash-dotted blue)]
   )
   let quad_plt = graph_plot(
     plot(data: quad_pts, axes: (x_axis, y_axis)),
@@ -301,6 +301,7 @@ def userFullName(users: List[User], id: int) -> str:
 The `userFullName` function takes a list of users, and retrieves the `id`th element of the list and generates a full name from the user's first and last names.  
 For now, we'll assume that looking up any element of any array (`users[id]`), string concatenation (`user.firstName + " " + user.lastName`), assignment (`user = ...`, and `fullName`), and returns are all constant-time operations#footnote[
   Array lookups being constant-time is a huge simplification, called the RAM model, that we'll roll back at the end of the book.  
+  Similarly, string concatenation is not quite $Theta(1)$.  It's usually $Theta(N)$ where $N$ is the size of the strings being concatenated.  However, as long as we assume that strings are relatively small, we'll pretend (for now) that string concatenation is constant-time.
 ].  
 
 Under these assumptions, the first, second, and third lines can each be evaluated in constant time $Theta(1)$.
@@ -614,7 +615,9 @@ This inequality holds for any $10 >= c_"lower" > 0$ (recall that $c$ has to be s
 So, we've shown that $T(N) in O(N)$ *and* $T(N) in Omega(N)$.  
 The new thing is that we've shown that the upper and lower bounds *are the same*.
 That is, we've shown that $T(N) in O(g(N))$ and $T(N) in Omega(g(N))$ *for the same mathematical function $g$*.  
-If we can prove that an upper and lower bound for some mathematical function $f(N)$ that is the same mathematical function $g(N)$, we say that $f(N)$ and $g(N)$ are in the same complexity class.  Formally, $f(N) in Theta(g(N))$ if and only if $f(N) in O(g(N))$ *and* $f(N) in Omega(g(N))$. 
+If we can prove that an upper and lower bound for some mathematical function $f(N)$ that is the same mathematical function $g(N)$, we say that $f(N)$ and $g(N)$ are in the same complexity class.  
+
+Formally, $f(N) in Theta(g(N))$ is defined as $f(N)$ being bounded from *both* above and below by $g(N)$.  In other words, $f(N) in Theta(g(N))$ if and only if $f(N) in O(g(N))$ *and* $f(N) in Omega(g(N))$. 
 
 == Tight Bounds
 
@@ -633,7 +636,7 @@ If it is not possible to obtain a better Big-$O$ or Big-$Omega$ bound, we say th
 - $10N^2 in Omega(N)$ is correct, but *not* a tight bound.
 
 Note that since we define Big-$Theta$ as the intersection of Big-$O$ and Big-$Omega$, all Big-$Theta$ bounds are, by definition tight.
-As a result, we sometimes call Big-$Theta$ bounds "tight bounds".
+As a result, we often call Big-$Theta$ bounds "tight bounds".
 
 == Which Variable?
 
