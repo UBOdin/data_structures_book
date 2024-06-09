@@ -24,7 +24,7 @@
 #include "chapters/2-math.typ"
 #include "chapters/3-asymptotic.typ"
 #include "chapters/4-lists.typ"
-// Chapter 5: Recursion, Divide and Conquer, Average Runtime
+#include "chapters/5-recursion.typ"
 // Chapter 6: The Stacks and Queue ADTs
 // Chapter 7: The Graph ADT and Graph Traversal
 // Chapter 7: The Priority Queue ADT

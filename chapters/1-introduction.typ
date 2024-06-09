@@ -15,6 +15,10 @@ Finally, we'll nudge you to start thinking about code a bit more formally, less 
 
 == What should you get out of this Data Structures class?
 
+This data structures class is fundamentally a math class, where the math will make you into a better programmer.  
+On the subject of learning math, Terrence Tao#footnote[#link("https://terrytao.wordpress.com/career-advice/theres-more-to-mathematics-than-rigour-and-proofs/")] observes that, while learning to think rigorously is an important step in developing the discipline needed to avoid common logic errors, understanding the underlying intuition is critical too.
+Along these lines, our goal in this class is both to help you develop the mathematical rigor and discipline to reason about your code, as well as to develop an intuition for how data organization impacts your code's runtime.
+
 === An intuition for data structures
 
 Throughout the book (and class), we'll try to be precise and formal when talking about course material.

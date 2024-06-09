@@ -20,13 +20,13 @@ public interface Narf<T>
 }
 ```
 
-This `interface` states that any class that implements `Moof` must provide `foo`, `bar`, and `baz` methods, with arguments and return values as listed above.
+This `interface` states that any class that implements `Narf` must provide `foo`, `bar`, and `baz` methods, with arguments and return values as listed above.
 This is not especially helpful, since it doesn't give us any idea of what these methods are supposed to do.
-Contrast `Moof` with the following interface:
+Contrast `Narf` with the following interface:
 ```java
 public interface MutableSequence<T>
 {
-  public void update(int index, T element);
+  public void set(int index, T element);
   public T get(int index);
   public int size();
 }
@@ -35,10 +35,10 @@ public interface MutableSequence<T>
 Just by reading the names of these methods, you get some idea of what each method does, and how it interacts with the state represented by a `Sequence`. 
 You can build a mental model of what a Sequence is from these names.
 
-An Abstract Data Type is:
-1. A mental model of some sort of data (a data type)
-2. One or more operations for accessing or modifying that state (an interface)
-3. Any other rules for the state (constraints)
+An Abstract Data Type is defined in three parts:
+1. Formal rules for the type of data being stored (a data type).
+2. One or more operations for accessing or modifying that state (an interface).
+3. Any other rules for the state (constraints).
 
 For most ADTs discussed in this book, the ADT models sort of collection of elements.  The difference between them is how you're allowed to interact with the data.
 
@@ -64,7 +64,7 @@ What are some commonalities in these examples?
 - Every index in the range $0 <= "index" < N$ has exactly one element assigned to it.
 
 What kind of operations can we do on a sequence#footnote[
-  Note: Although several of the ADTs and data structures we'll present throughout this book correspond to actual Java interfaces and classes, `Sequence` is *not* one of them.  However, it serves as a useful simplification of the `List` interface that we'll encounter later on.
+  Note: Although several of the ADTs and data structures we'll present throughout this book correspond to interfaces and classes from the Java standard library, `Sequence` is *not* one of them.  However, it serves as a useful simplification of the `List` interface from the Java standard library that we *will* encounter later on.
 ]?
 ```java
 public interface Sequence<T>
@@ -102,7 +102,7 @@ public class Alphabet implements Sequence<Character>
 }
 ```
 
-*Is this a sequence?*
+Is `Alphabet` a sequence?  Yes!  It implements the two operations of a sequence:
 - `size`: There are $N = 26$ elements.
 - `get`: Every element from $0 <= i < 26$ is assigned exactly one value.
 
@@ -125,7 +125,7 @@ public class Fibonacci implements Sequence<Int>
   { return INFINITY; }
 }
 ```
-*Is this a sequence?*
+Is `Fibonacci` a sequence?  Yes!  It implements the two operations of a sequence:
 - `size`: There are $N = infinity$ elements.
 - `get`: Every element from $0 <= i < infinity$ is assigned exactly one value derived from the value of preceding elements of the sequence as $"Fib"(i-1) + "Fib"(i-2)$#footnote[
   If you're paying attention, you might notice that we're waving our hands a bit with this proof.  Specifically, how do we convince ourselves that there is *exactly* one value at index $i$, and not zero (can $"Fib"(i)$ return `IndexOutOfBoundsException` for $i >= 0$), or more than 1 (will $"Fib"(i)$ always return the same value)?  Proving either of these will require a technique called *induction* that we'll come back to later in the book.
@@ -136,7 +136,7 @@ public class Fibonacci implements Sequence<Int>
 Often, however, we want to represent an sequence of *arbitrary* elements.
 We won't have simple rule we can use to translate the index into a value.
 Instead, we need to store the elements somewhere if we want to be able to retrieve them.  
-The easiest way to store a sequence, when we know the size of the sequence upfront is called an *array*.
+The easiest way to store a sequence, when we know the size of the sequence up front is called an *array*.
 
 Let's take a brief diversion into the guts of a computer.  
 Most computers store data in a component called RAM#footnote[
@@ -252,14 +252,14 @@ We'll call the resulting ADT a `MutableSequence`#footnote[
 ```java
 public interface MutableSequence<T> extends Sequence<T>
 {
-  public void update(int index, T element)
+  public void set(int index, T element)
 }
 ```
 
-The `extends` keyword in java can be used to indicate that an interface takes in all of the methods of the extended interface, and potentially adds more of its own.  In this case `MutableSequence` has all of the methods of `Sequence`, plus its own `update` method.
+The `extends` keyword in java can be used to indicate that an interface takes in all of the methods of the extended interface, and potentially adds more of its own.  In this case `MutableSequence` has all of the methods of `Sequence`, plus its own `set` method.
 
 A Mutable Sequence introduces one new rule:
-- After we call `update(i, value)` with a valid index (i.e., $0 <= i < N$), every following call to `get(i)` for the same index will return the `value` passed to update (until the next time index `i` is updated).
+- After we call `set(i, value)` with a valid index (i.e., $0 <= i < N$), every following call to `get(i)` for the same index will return the `value` passed to set (until the next time index `i` is set).
 
 ==== Mutable Array
 
@@ -270,21 +270,21 @@ public class MutableArraySequence<T> implements MutableSequence<T>
   T[] data;
 
   public ArraySequence(int size){ this.data = new T[size]; }
-  public void update(int index, T element) { data[index] = value; }
+  public void set(int index, T element) { data[index] = value; }
   public T get(int index) { return data[index]; }
   public int size() { return data.size; }
 }
 ```
 
 As before, we can show that the array satisfies the rules on `get` and `size`, leaving the new rule:
-- `update`: Calling update overwrites the array element at `data[index]` with value, which is the value returned by `get(index)`.
+- `set`: Calling set overwrites the array element at `data[index]` with value, which is the value returned by `get(index)`.
 
 === Array Summary
 
 Observe that each of the three `MutableSequence` methods are implemented in a single, primitive operation.  Thus:
 
 - `get`: Retrieving an element of an Array (i.e., `array[index]`) is $Theta(1)$
-- `update`: Updating an element of an array (i.e., `array[index] = ...`) is $Theta(1)$
+- `set`: Updating an element of an array (i.e., `array[index] = ...`) is $Theta(1)$
 - `size`: Retrieving the array's size (i.e., `array.size`) is $Theta(1)$
 
 Recall that `size` accesses a pre-computed value, stored with the array in Java.
@@ -345,14 +345,14 @@ Once we allocate the new array, we'll need to copy over everything in our origin
 ```java
 public class SimpleArrayAsList<T> extends MutableArraySequence implements List<T>
 {
-  // data, get, update, size() inherited from MutableArraySequence
+  // data, get, set, size() inherited from MutableArraySequence
 
   public void add(T element){ add(size(), element); }
   public void add(int index, T element)
   {
     // Skipped: Check that index is in-bounds.
     T[] newData = new data[size() + 1];
-    for(i = 0; i < newData.size; i++){
+    for(i = 0; i < newData.length; i++){
       if(i < index){ newData[i] = data[i]; }
       else if(i == index){ newData[i] = element; }
       else { newData[i] = data[i-1]; }
@@ -363,7 +363,7 @@ public class SimpleArrayAsList<T> extends MutableArraySequence implements List<T
   {
     // Skipped: Check that index is in-bounds.
     T[] newData = new data[size() - 1];
-    for(i = 0; i < newData.size; i++){
+    for(i = 0; i < newData.length; i++){
       if(i < index){ newData[i] = data[i]; }
       else { newData[i] = data[i+1]; }
     }
@@ -380,7 +380,7 @@ Let's look at the runtime of the `add` method:
 - We'll assume that memory allocation is constant-time ($Theta(1)$)#footnote[
   Lies!  Lies and trickery!  Memory allocation may require zeroing pages, multiple calls into the kernel, page faults, and a whole mess of other nonsense that scale with the size of the memory allocated.  Still, especially for our purposes here, it's usually safe to assume that the runtime of memory allocation is a bounded constant.
 ].
-- We already said that array updates and math operations are constant-time ($Theta(1)$)
+- We already said that array changes and math operations are constant-time ($Theta(1)$)
 
 So, we can view the the `add` method as
 ```java
@@ -634,7 +634,7 @@ Since $"index" < N$, `get` is at worst linear in the size of the array, and so w
 
 Similarly, since $"index" >= 0$, so `get` _could be_ constant time (e.g., `get(0)` requires only constant time), and we get the lower bound: $T_"get"(N) = Omega(1)$
 
-==== Linked List `update`
+==== Linked List `set`
 
 #figure(
   cetz.canvas({
@@ -661,13 +661,13 @@ Similarly, since $"index" >= 0$, so `get` _could be_ constant time (e.g., `get(0
     mark_step((10.2, -0.8), [3])
     content((9.5, -2), text(blue)['o'])
   }),
-  caption: "Updating the character at index 2 to 'o', on the linked list representing the list ['M', 'o', 'p', '.'].  After the update, the linked list represents the list ['M', 'o', 'o', '.']"
+  caption: "Updating the character at index 2 to 'o', on the linked list representing the list ['M', 'o', 'p', '.'].  After the set, the linked list represents the list ['M', 'o', 'o', '.']"
 )
-To update the $i$th element of a linked list, just like `get`, we need to first find the $i$th element. 
-As a result, the code for `update` is almost exactly the same as `get`, except for the very last line.
+To set the $i$th element of a linked list, just like `get`, we need to first find the $i$th element. 
+As a result, the code for `set` is almost exactly the same as `get`, except for the very last line.
 
 ```java
-  public void update(int index, T element)
+  public void set(int index, T element)
   {
     if(index < 0){ throw new IndexOutOfBoundsException() }
     Option<Node> currentNode = head;
@@ -680,22 +680,22 @@ As a result, the code for `update` is almost exactly the same as `get`, except f
   }
 ```
 
-Using our Linked List invariants, we can similarly prove that our implementation of update follows the rules that we set out for `List`'s `update` operation.
-Remember that `update(index, element)` is supposed to change the linked list so that the next time we call `get(index)`, we get `element` instead of what was there before.
+Using our Linked List invariants, we can similarly prove that our implementation of set follows the rules that we set out for `List`'s `set` operation.
+Remember that `set(index, element)` is supposed to change the linked list so that the next time we call `get(index)`, we get `element` instead of what was there before.
 
 1. We start with `currentNode` assigned to `head`; By the rules we set for ourselves, this is the 0th node.  
 2. The $i$th node has a pointer to the $(i+1)$th node, which we follow $i$ times.  
 3. After $i$ steps, `currentNode` has been reassigned to the $0 + underbrace(1 + ... + 1, i "times") = 0 + sum_i 1 = i$th node.
 4. It follows from step 4 and the fact that the loop iterates `index` times that after the loop, `currentNode` is the $"index"$th node.
-5. It follows from step 5 and the rule that the $i$th node (if it exists) contains the $i$th element (if it exists), that the `value` in `currentNode` which `update` changes is the $"index"$th node
-6. Since any subsequent calls to `get` will return the $"index"$th node, we can conclude that `update` is correct.
+5. It follows from step 5 and the rule that the $i$th node (if it exists) contains the $i$th element (if it exists), that the `value` in `currentNode` which `set` changes is the $"index"$th node
+6. Since any subsequent calls to `get` will return the $"index"$th node, we can conclude that `set` is correct.
 
-*Side Note*: Observe how the proof for `update` is almost exactly the same as the proof for `get`.  
+*Side Note*: Observe how the proof for `set` is almost exactly the same as the proof for `get`.  
 
 As usual we can figure out the runtime by replacing every primitive operation with $Theta(1)$
 
 ```java
-  public void update(int index, T element)
+  public void set(int index, T element)
   {
     if( /* Theta(1) */ ){ throw /* Theta(1) */ }
     /* Theta(1) */
@@ -708,7 +708,7 @@ As usual we can figure out the runtime by replacing every primitive operation wi
   }
 ```
 
-Once we replace all primitive operations with $Theta(1)$, `update` and `get` are exactly the same. 
+Once we replace all primitive operations with $Theta(1)$, `set` and `get` are exactly the same. 
 Taking the same steps gets us to a runtime of $Theta("index")$, or $O(N)$.
 
 ==== Linked List `add`
@@ -829,8 +829,8 @@ If the node doesn't exist, then the newly created node's `next` field is assigne
 ==== Aside: Invariants and Rule Preservation
 
 It's worth taking a step back at this point and reviewing what we just did and why.
-We defined the expected state of the linked list (in terms of the behavior of `get` and our rules for a correct linked list) _after_ the update, but we did so relatively to its state _before_ the update.
-Specifically, we showed that, if the list was correct before we called `update`, it would still be correct (for the new list) after we called `update`, or in other words, we showed that `update` *preserves the invariants* we defined for the linked list.
+We defined the expected state of the linked list (in terms of the behavior of `get` and our rules for a correct linked list) _after_ the set, but we did so relatively to its state _before_ the set.
+Specifically, we showed that, if the list was correct before we called `set`, it would still be correct (for the new list) after we called `set`, or in other words, we showed that `set` *preserves the invariants* we defined for the linked list.
 
 Invariants are an extremely useful debugging technique for data structures (and other code).
 If you can precisely define one or more rules (invariants) for your data structure, you can check to see whether your code follows the rules:
@@ -839,7 +839,7 @@ If you get a correct data structure as input to your function, is it always the 
 
 ==== Linked List `add` runtime
 
-The runtime of `add` follows a pattern very similar to that of `update`:
+The runtime of `add` follows a pattern very similar to that of `set`:
 
 ```java
   public void add(int index, T element)
@@ -962,7 +962,7 @@ The size of the list is the number of elements.  Thinking back to our rules, the
   }
 ```
 
-Let's see if we can prove that this code is correct.  This code is a bit harder to think about than `get` and `update`, since in both of those cases we had a nice handy `for` loop to keep track of how many 'steps' we take through the list.  
+Let's see if we can prove that this code is correct.  This code is a bit harder to think about than `get` and `set`, since in both of those cases we had a nice handy `for` loop to keep track of how many 'steps' we take through the list.  
 Here, the while loop just keeps going until `currentNode.isEmpty()`.   
 When trying to tackle a tricky proof like this, it can often help to break down the proof into cases.  
 
@@ -1286,7 +1286,6 @@ This code structure includes five placeholders:
   inset: 10pt,
   align: horizon,
   stroke: none,
-
   table.header(
     [],
     table.vline(),
@@ -1314,7 +1313,7 @@ This code structure includes five placeholders:
 === The Iterator ADT
 
 The `Iterator` abstract data type, abstractly models the position of a loop in a list, providing the five operations named above.
-Each language models the idea of an iterator slightly differently, but in Java, the `Iterator` interface looks like:
+Iterators are implemented in each language slightly differently, but in Java, the main parts of the `Iterator` interface look like:
 
 ```java
 public interface Iterator<E>
@@ -1410,7 +1409,7 @@ Returning to the iterator-based implementation of `computeSum`, we can figure ou
     /* Theta(1) */
     for( /* Theta(1) */;
          /* Theta(1) */;
-         )
+         /* 0 */)
     {
       /* Theta(1) */
     }
@@ -1422,19 +1421,532 @@ This gives us a runtime of:
 
 $T_("computeSumWithIterators")(N) = Theta(1) + (sum_{i = 0}^{N-1} Theta(1) ) + Theta(1) = Theta(N)$
 
-*Important Note*: Using iterators, we get the same $Theta(N)$ runtime for a loop over a list, but *without having to specialize the loop implementation*.  
-Abstracting the iteration variable into an iterator makes the code far more flexible, since we can swap in *any* list for the algorithm and still, in principle, get the best possible performance.
+Using iterators, we get the same $Theta(N)$ runtime for a loop over either list implementation, but we get the benefit *without having to specialize the loop implementation*.  
+
+The resulting code is far more flexible, since we can freely swap in *any* other data structure implementation, without impacting the code's correctness (or, in this case, performance).
+
+==== Java Iterator shorthand 
+
+Looping over the elements of a collection with iterators is such a common pattern that Java adds a bit of syntax to make it easier to write.  Note the `for` syntax below.
+
+
+```java
+  public void computeSumWithIteratorsV2(List<Integer> list)
+  {
+    int sum = 0;
+    for(Integer i : list)
+    {
+      sum += i.next();
+    }
+    return sum;
+  }
+```
+
+`computeSumWithIterators` and `computeSumWithIteratorsV2` do exactly the same thing.  
+```java
+  for(T element : collection){ /* ... */ }
+``` 
+is simply a shorthand for:
+```java
+  for(Iterator<T> iter = collection.iterator(); iter.hasNext(); ){
+    T element = iter.next();
+    ...
+  }
+```
 
 === List Access by Reference
 
-Iterators are 
+Iterators have another benefit.  They give us a highly efficient way to reference a *specific* element of a list.  
+
+Remember that for Arrays, we can efficiently identify an element by its index.  
+For any operation that we want to perform on specific elements of the Array, we can use the list index to identify the element we want to affect.  For example, let's talk about the following bit of code, which deletes every instance of an element in the list.
+
+```java
+  public void removeAll<T>(List<T> list, T element)
+  {
+    for(i = 0; i < list.length(); i++){
+      if(list.get(i).equals(element)){
+        list.remove(i);
+        i -= 1;
+      }
+    }
+  }
+```
+
+The code iterates through every element of the list, and then calls `remove` on the element being removed.  In the implementation above, we use the index (`i`) to refer to a specific element.  
+However, remember that that this is exactly the type of loop that led us to come up with iterators, since it performs quadratically if `list` is a `LinkedList`.  Let's replace the code with an iterator#footnote[
+  If you try running `removeAllWithIterator` for real, you'll notice that it actually won't work.  Because `remove` changes the list, it also 'invalidates' all iterators on the list.  Keep reading on for a way to implement this algorithm without breaking the iterator.
+].
+
+```java
+  public void removeAllWithIterator<T>(List<T> list, T element)
+  {
+    int i = 0;
+    for(Iterator<T> iter = list.iterator(); iter.hasNext();){
+      if(iter.next().equals(element)){
+        list.remove(i);
+      } else {
+        i++;
+      }
+    }
+  }
+```
+
+Note that we can't get rid of the list index (`i`), since we need a way to tell `remove` which element to remove.
+However, this has an unexpected consequence on performance: If `list` is a `LinkedList`, `remove` has a runtime complexity of $Theta(i)$.  
+If we do a runtime analysis of removeAllWithIterator, plugging in the cost of `remove` on a `LinkedList`#footnote[
+  The analysis is only slightly different if you plug in the $O(N)$ cost of `remove` for an `Array`. 
+], we start with:
+
+```java
+  public void removeAllWithIterator<T>(List<T> list, T element)
+  {
+    /* O(1) */
+    for(/* O(1) */){
+      if( /* O(1) */){
+        /* O(i) */
+      } else {
+        /* O(1) */
+      }
+    }
+  }
+```
+
+The `for` loop visits every element of the list.  
+Although `i` isn't incremented for *every* element of the list, we can use the number of elements we've visited as a _upper bound_ on `i`.  That is: $i in O(v)$ (where $v$ is the number of visited nodes.  Using this insight, we can compute the total runtime (with $N$ as the `length` of `list`) as:
+
+$T_"removeAllWithIterator" (N) = O(1) + O(1) + sum_(v : 0)^N O(1) + cases(O(i), O(1))$
+
+The cases block is upper-bounded by $O(i)$, and $O(i)+O(1) = O(i)$, so
+
+$T_"removeAllWithIterator" (N) = O(1) + O(1) + sum_(v : 0)^N O(i)$
+
+As we noted above, $i in O(v)$, so:
+
+$T_"removeAllWithIterator" (N) = O(1) + O(1) + sum_(v : 0)^N O(v)$
+
+Applying our summation rules, we can simplify the summation:
+
+$T_"removeAllWithIterator" (N) = O(1) + O(1) + O(N^2)$
+
+And one more simplification step gets us:
+
+$T_"removeAllWithIterator" (N) = O(N^2)$
+
+$O(N^2)$ isn't great, so let's take a step back and ask ourselves why that's the runtime complexity.
+We need to do a loop over $N$ elements just to find the elements that don't fit, so it'll be difficult to get the runtime under $O(N)$#footnote[
+  This is a tiny lie, but true for Arrays and Linked Lists.  We'll get to efficiently finding elements in the sections on Trees and Hash Tables.
+].
+However, in every iteration of the loop, we have the $O(i)$ call to `remove`.
+
+That $O(i)$ factor is there because it takes us `i` steps to find the linked list node for the `i`th element. 
+However, remember that *once we have the `i`th linked list node, actually removing the element is $O(1)$.*
+To understand why that bit of information is useful, let's remember that the the `LinkedList` iterator works by storing a reference to the current linked list node.
+The variable `iter` already stores a reference to the `i`th linked list node!
+Meanwhile, here we are in this algorithm, repeatedly looking for an `i`th node that we already have.
+
+To address this performance issue, `Java` iterators include a `remove` method that removes the element most recently returned by `next`.
+Our algorithm changes only slightly:
+
+```java
+  public void removeAllWithIteratorV2<T>(List<T> list, T element)
+  {
+    for(Iterator<T> iter = list.iterator(); iter.hasNext();){
+      if(iter.next().equals(element)){
+        iter.remove();
+      }
+    }
+  }
+```
+
+The implementation of `remove` for an Array-based `Iterator` remains $O(N)$ (since the array still needs to shift elements at indices above $i$ to the left).
+However, for a `LinkedList`-based iterator, the `remove` method drops to $O(1)$, since the iterator already has a _reference_ to the linked list node.
+
+Although `remove` is the only method that appears in an iterator, you can see that nearly every other operation on a `LinkedList` (`add`, `set`) is $O(i)$ for essentially the same reason: `List` uses the list position to identify elements, and it costs $O(i)$ to find the linked list node for the `i`th element.  
+However, if we already have a reference to the `i`th element (technically the $i-1$th element), each of these operations can be performed in $O(1)$.
+
+Because of this unusual behavior, we usually give *two* separate runtimes for `LinkedList` operations: One runtime for the operation applied to a given index (on the `List` itself) and one runtime for the operation applied to a reference (e.g., on the `Iterator`).  
+
+1. `get(i)`
+    - *By Index*: $O(i)$
+    - *By Reference*: $O(1)$
+2. `set(i, v)`
+    - *By Index*: $O(i)$
+    - *By Reference*: $O(1)$
+3. `add(i, v)`
+    - *By Index*: $O(i)$
+    - *By Reference*: $O(1)$
+4. `remove(i)`
+    - *By Index*: $O(i)$
+    - *By Reference*: $O(1)$
+
+=== Doubly Linked Lists
+
+In the simple `LinkedList` we've described so far, often called a *Singly* linked list, each node contains a pointer to the next node in the chain (or `null` if it's the last node).
+This is convenient for moving _forwards_ through the list, but sometimes it's convenient to be able to go _backwards_ through the list as well.  For example, try implementing the `LinkedList` iterator's `remove` method with a singly linked list, and you'll find that you need to keep track of several of the preceding nodes.
+
+In a *Doubly* linked list, each linked list node also keeps a pointer to the previous node, and the linked list itself usually keeps pointers to the first _and last_ nodes in the list.
+Although the extra pointers require extra book-keeping, all of the extra work is constant time.
+As a result, a doubly linked list's operations have asymptotic runtime complexities that are at least as good as a singly linked list.
+In fact, the `add` (i.e., append) operation becomes $O(1)$, since we have a pointer to the last element in the list (and so can access it _by reference_).
+
+Moving forward, *we will assume that every linked list is a Doubly Linked List*.
+
+== Array List, take 2 (Buffered Arrays)
+
+There are many situations where it's useful to be able to append to a list.
+As we already discussed, Java implements append as a special case of `add` that omits the `index` argument.
+For example, if we have a `List` of log entries, new log entries will always be added to the end.
+Similarly, implementations of some ADTs like `Stack` and `Queue`, which we'll discuss later, involve putting new elements at the end of a `List`.
+
+#figure(
+  image("graphics/lists-array-add.svg", width: 50%),
+  caption: [
+    Adding an item to an array requires (1) allocating a new space for the array, (2) copying the contents of the old array to the new space, and (3) updating the data pointer to the new space.
+  ]
+)<array_add>
+
+As we just discussed, we can append to a doubly linked list in $O(1)$, but let's come back to the humble array, for which the `add` operation is shown in @array_add.
+Thinking back, remember that the cost of `add` comes from two general tasks:
+1. Copying every element of the array to a new array with one extra space: $O(N)$
+2. Shifting every element of the array to the right by one spot: $O(N-i)$
+
+In the case of append, we're inserting at the end; In other words $i=N$, and the cost of second step is $O(N-N) = 0$.
+Since we're inserting at the last element, nothing needs to be moved over to make space for the new element.
+However, we can't directly benefit from this observation, since we still need to copy every element into a new array.
+So let's think how we might be able to avoid that copy.
+
+=== Buffered Arrays (Attempt 1: Fixed Increment)
+
+#figure(
+  image("graphics/lists-bufferedarray.svg", width: 50%),
+  caption: [
+    An `ArrayList` allocates extra space to efficiently support append operations.
+    The example above shows an `ArrayList` with 5 elements in use, and 5 unused spaces.
+    The structure keeps track of both how many elements in the array are in-use, and how big the allocated array is.
+  ]
+)<bufferedarray>
+
+One idea might be to set aside a little bit of extra space in the array when we first allocate it.
+Let's say that when we're asked to create an $N$ element array, we instead allocate space for $N+B$ elements (@bufferedarray).
+The extra $B$ elements are held in reserve until `add` is called.
+Now, the next $B$ calls to `add` are free, and even after that, we can still allocate another $B$ elements.
+Here's a simplified version of this idea with the one argument `add` implemented:
+
+```java
+public class FixedIncrementArrayList<T> implements List<T>
+{
+  static int B = 10;
+  T[] data = new T[0];
+  int size = 0;
+
+  /* Other methods omitted */
+
+  public void add(T elem)
+  {
+    if(size >= data.length){
+      T[] temp = new T[data.length + B];
+      for(i = 0; i < data.length; i++){
+        temp[i] = data[i];
+      }
+      data = temp;
+    }
+    data[size] = elem;
+    size += 1;
+  }
+}
+```
+
+If we're out of space (`size >= data.length`), we allocate a new array (`temp`) that is $B$ elements bigger, and copy every element of `data` into it.
+After we replace the old array with the new one, we have free space.
+Regardless of whether we had to allocate more space or not, we put the new `elem` into the first free slot, and shift `size` over by one step.
+It should be clear that, in the common case (which happens in $(B-1)/B$ calls to `add`), this data structure will be faster than `Array`.
+But let's dig deeper and do a proper analysis.  
+Tagging every step in the algorithm with the runtime, we get:
+
+```java
+  public void add(T elem)
+  {
+    if(/* O(1) */){
+      /* O(1) */
+      for(/* O(1), looping with i from 0 to N */){
+        /* O(1) */
+      }
+      /* O(1) */
+    }
+    /* O(1) */
+    /* O(1) */
+  }
+```
+
+Summing this up, we get:
+
+$( cases(O(1) + (sum_(i=0)^N O(1)) + O(1), O(1)) ) + O(1) + O(1)$
+
+We can apply the summation rule for summation of a constant, and get rid of some of the redundant $O(1)$s
+
+$( cases(O(N), O(1)) ) + O(1)$
+
+Remembering that Big-$O$ is an _upper_ bound, we take the worse case
+
+$O(N) + O(1) = O(N)$
+
+So, from a worst-case perspective, it seems as though we haven't actually improved anything.
+That makes sense: On *any* call to `add`, it's possible that we might trigger the worst case behavior, and have to pay the $O(N)$ cost.
+On the other hand, $B-1$ out of every $B$ calls only have to pay $O(1)$, so while any *one* call to `add` might behave badly, maybe this leads to better performance on average?
+
+=== Amortized Analysis
+
+A large part of the reason that asymptotic runtime complexity is useful is that it allows us to plan out our algorithms.
+Big-$O$, a.k.a. "worst-case" run-times are a safe bet for that planning process, since you know that it can't be any worse.
+However, there are some cases where strictly using Big-$O$ ends up being too conservative, and you actually end up with an algorithm that has better performance than following the rules of worst-case analysis would lead you to believe.
+On the other hand, just giving up and saying "well, the analysis says X, but it's usually faster" isn't helpful when you're trying to be precise.
+
+In short, we still want to be able to make _some_ formal claim about the runtime of this new `add` function that will help us to understand its behavior, but Big-$O$ isn't the right language to use for that.
+We need to define some new terms#footnote[
+  Amortized complexity, which we discuss here, is one of two relaxations of simple, or "unqualified" asymptotic complexity.  We'll talk about Expected complexity in the next chapter, as we introduce Quick Sort.
+].
+Intuitively, even if every $B$'th call to `add` is slow, most calls to `add` are fast.
+If we're trying to prove something, maybe we can show that these fast calls "average" out to a faster runtime if we call `add` repeatedly.
+For example, let's take the following loop, which just appends $L$ elements to a list of some sort:
+
+```java
+  public void addLots(List<Integer> list, int L)
+  {
+    for(i = 0; i < L; i++)
+    {
+      list.add(i);
+    }
+  }
+```
+
+Let's start off by seeing what happens if we assume that `list` starts off as an empty `SimpleArrayAsList`.  
+
+```java
+  public void addLots(List<Integer> list, int L)
+  {
+    for(/* O(1), looping with i from 0 to L */)
+    {
+      /* O(N) = O(i) */;
+    }
+  }
+```
+
+For a simple array, appending a new element is $O(N)$.
+If we start off with an empty array, then on the `i`th insertion, $N = i$, so the add costs $O(i)$.
+This gives us a total runtime of:
+
+$T_"addLots1" (L) = O(1) + sum_(i = 0)^L (O(1) + O(i))$
+
+Plugging in our standard summation formula and simplifying, we get:
+
+$T_"addLots1" (L) = O(1) + O(L^2) = O(L^2)$
+
+Now let's try the same thing with `FixedIncrementArrayList`.  If we do it naively, we get _exactly_ the same result, since `add` is $O(N) = O(i)$.  
+However, this specific loop gives us a pattern we can benefit from: We know that every $B$ calls to `add` will be $O(N)$ and every other call will be $O(1)$.  The summation looks like this (assuming $L$ is divisible by $B$):
+
+$T_"addLots2" (L) = underbrace(
+  (overbrace(O(1) + ... + O(1), (B-1) "times") + O(B)) + ... +
+  (overbrace(O(1) + ... + O(1), (B-1) "times") + O(L/B dot B)),
+  L/B "times"
+)$
+
+Collapsing the $(B-1)$ times, we get:
+
+$T_"addLots2" (L) = underbrace(
+  (O(B-1) + O(B)) + (O(B-1) + O(2 dot B)) + ... + (O(B-1) + O(L/B dot B)),
+  L/B "times"
+)$
+
+We can rearrange these terms to get:
+
+$T_"addLots2" (L) = (underbrace(O(B-1) + ... + O(B-1), L/B "times")) + 
+ (underbrace(O(1 dot B) + O(2 dot B) + O(3 dot B) + ... + O(L/B dot B), L/B "times"))$
+
+And again, simplifying, we get:
+
+$T_"addLots2" (L) = O(L/B dot (B-1)) + sum_(i = 1)^(L/B) O(i dot B) = O(L) + O(B) dot sum_(i = 1)^(L/B) O(i)$
+
+Plugging in our summation formula and simplifying, we get
+
+$T_"addLots2" (L) = O(L) + O(B) dot O(L^2 / B^2) = O(L) + O(L^2 / B) = O(L^2 / B)$
+
+This should make intuitive sense: Since we're only paying the cost of an expensive copy on every $B$ insertions, the cost of $L$ appends into an empty `FixedIncrementArrayList` is $1/B$th of the cost of the same appends into a simple array list.
+If we average the individual cost of each of the $L$ calls, each individual call "behaves" like its runtime is $O(L/B)$.
+
+Put another way, in the worst possible case, `FixedIncrementArrayList.add` is $O(N)$.
+However, if we're specifically analyzing the behavior of `add` when it is called in a loop, it's actually 100% safe to pretend like `add` is $O(N/B)$.
+
+We want a way to talk about this sort of behavior, where an operation on a data structure has a better runtime when it's called in a loop: A way to distinguish the 'looping' runtime complexity from the normal runtime complexity.
+The technical term for this better runtime is the "*amortized* runtime complexity" of the algorithm.
+
+*Formally*, if the amortized runtime complexity of an operation is $O(f(N))$, then the normal, or "unqualified" runtime complexity#footnote[
+  If the term "unqualified" seems a bit strange here, it's because the term "amortized" is a _qualifier_ that modifies the meaning of runtime complexity.  "un-qualified" doesn't mean that it's not good at anything, but just that we're talking about the runtime complexity without any qualifiers.  Next chapter, we'll introduce one more type of qualifier: "expected."
+] of $N$ calls to the operation are guaranteed to be $O(N dot f(N))$.
+
+For the running example, we would say that:
+- The *unqualified* runtime complexity of `add` for `FixedIncrementArrayList` is $O(N)$
+- The *amortized* runtime complexity of `add` for `FixedIncrementArrayList` is $O(N/B)$
+
+Note that, it's possible to describe amortized complexity bounds as being "tight", if we know that we can't get a better bound.
+It's worth noting that the *tight amortized runtime complexity is never worse than the tight unqualified runtime complexity* of an algorithm, since invoking an algorithm in a loop can not make it slower.
+Formally, if the unqualified runtime is $O(f(N))$, then $N$ invocations is $sum_(i=0)^N O(f(N)) = O(N dot f(N))$, so by our definition above, the amortized runtime can not be worse than $O(f(N))$.
 
 
+=== Buffered Arrays (Attempt 2: Exponential Increment)
 
+*(Alternative title: Try this one neat trick to get your asymptotic runtime bound down to $O(1)$)*
 
-== Doubly Linked List
+The amortized runtime complexity of `add` for `FixedIncrementArrayList` is better than that of `SimpleArrayAsList`. 
+However, in most cases $B$ is a constant, and so asymptotically $O(N)$ and $O(N/B)$ are the same.
+Put another way, doubling $N$ still doubles the runtime, even under amortized analysis.
+However, as it turns out, if we're a bit more clever about how we resize the array, we can actually push the asymptotic bound down to a lower complexity class: $O(1)$.
+The trick here is that, instead of adding a fixed size to the array ($B$) whenever we resize it, we always double the size of the array instead.
+This is the idea behind the `ArrayList` that is implemented in the Java standard library.
 
-== Buffered Arrays (Array List, take 2)
+```java
+public class ArrayList<T> implements List<T>
+{
+  T[] data = new T[1];
+  int size = 0;
+
+  /* Other methods omitted */
+
+  public void add(T elem)
+  {
+    if(size >= data.length){
+      T[] temp = new T[data.length * 2]; // Double the array size
+      for(i = 0; i < data.length; i++){
+        temp[i] = data[i];
+      }
+      data = temp;
+    }
+    data[size] = elem;
+    size += 1;
+  }
+}
+```
+
+Analyzing the amortized runtime of this new version of `add` is a little trickier than the previous two instances of Array-based lists, but we can use the same strategy that worked with `FixedIncrementArrayList`: (i) Plug `ArrayList` into `addLots`, (ii) Rearrange terms to put the fast and slow cases together, (iii) Simplify.
+Let's start by figuring out how 'slow' calls there are, where we need to copy.
+
+- The first `add` call is $O(1)$ (array length 1).
+- The 2nd `add` call requires a copy (array length 2).
+- The 3rd `add` call requires a copy, and the next 1 call is $O(1)$ (array length 4).
+- The 5th `add` call requires a copy, and the next 3 calls are $O(1)$ (array length 8).
+- The 9th `add` call requires a copy, and the next 7 calls are $O(1)$ (array length 16).
+- The 17th `add` call requires a copy, and the next 15 calls are $O(1)$ (array length 32).
+
+The general pattern here is that the $i$th copy occurs on the $(2^(i)+1)$th call to `add`.
+All the remaining calls are cheap.
+Put another way, after $2^x$ calls to `add`, we will have resized the array $x-1$ times.
+So, if we want to call `add` $N$ times, we can set up an equation to solve for $x$:
+
+$N = 2^x$
+
+Log is the inverse of exponent, so:
+
+$log_2 N = log_2 2^x = x$
+
+Plugging this back into our formula ($x-1$), we find that we will have resized the array $log_2 (N) - 1 = O(log_2(N))$ times.  
+On the $i$th time we need to resize the array, the array will have $2^(i-1)$ elements in it.  So, we can figure out the total runtime of the calls to add as:
+
+$T_"addLots3" (L) = 
+  underbrace(
+    O(1) + 2 O(1) + 4 O(1) + ... + (N-1) O(1),
+    log_2 (N) - 1 "times"
+  ) + 
+  underbrace(
+    O(1) + O(1) + ... + O(1),
+    N - (log_2 (N) - 1) "times"
+  )
+)$
+
+We can summarize this as:
+
+$T_"addLots3" (L) = 
+  (sum_(i = 0)^(log_2 (N) - 1) 2^(i) O(1))
+  + 
+  (sum_(i = 0)^(N - (log_2 (N) - 1)) O(1))
+$
+
+Factoring out the $O(1)$ terms and expanding out the summations, we get:
+
+$T_"addLots3" (L) = 
+  O(1) dot (2^(log_2 (N) - 1 + 1) - 1) 
+  + 
+  O(1) dot (N - log_2 (N) + 2)
+$
+
+Simplifying and noting that $2^(log_2 (N)) = N$, we get
+
+$T_"addLots3" (L) = 
+  (O(N) - O(1)) + (O(N) - O(log_2(N)) + O(1))
+$
+
+And since the dominant term here is $O(N)$, the whole thing reduces to
+
+$T_"addLots3" (L) = O(N)$
+
+Remember that `addLots` calls `add` $N$ times, so each individual call 'behaves' like it is $O(N) / N = O(1)$.
+In other words, the *amortized* runtime complexity of `add` is $O(1)$!
+It's left as an exercise for you to prove that the unqualified runtime complexity of `add` is still $O(N)$, so this might feel a bit weird: $N$ calls to an $O(N)$ operation should normally be $O(N^2)$, but in this specific case, it's actually $O(N)$, a substantially lower complexity class.
+What is it about exponentially growing the array, doubling its size every time, that makes this possible?
+
+The intuition here is that every time you double the size of the array from $N$ to $2N$ you're putting in $O(N)$ work to copy elements, but you can now do $N$ insertions before you need to copy again.
+This is true, even as $N$ grows.  Each time, no matter how big $N$ gets, $O(N)$ work gets you another $N$ insertions.
+The $O(N)$ work "amortizes" over the next $N$ insertions, and the ratio of cost to insertions stays the same.
+Contrast this with the Fixed-Increment Array List, where increasing the size of the array from $N$ to $N+B$ took $N$ work, but only provided space for another $B$ insertions.  $N$ grows, while $B$ stays the same, and the ratio of cost to insertions keeps growing.
+
+*Note:* It can be tempting to think that, if a data structure promises an $O(1)$ amortized runtime for an operation, you can safely treat the operation as $O(1)$ in all cases.
+However, as exemplified in `ArrayList`, the cost of array resizing can actually get quite high.  Even though the cost amortizes over multiple calls, there are many use cases where `ArrayList` is not appropriate.
+For example, let's say you're building a high-performance scientific data sensing application, which needs to be able to append sensor readings with sub-microsecond latencies.  
+`ArrayList` would *not* be appropriate for such an application, because some sensor readings would have to block on the array list while it resizes, violating the quality of service guarantees.
 
 
 == Recap
+
+To summarize, we have introduced two ADTs: `Sequence` and the more general `List`; as well as three main data structures: The `Array`, the `LinkedList`, and the `ArrayList`. 
+Overall asymptotic runtime bounds for these structures, assuming a Doubly-Linked list with a pointer to the last element, are as follows:
+
+
+#table(
+  columns: 5,
+  inset: 10pt,
+  align: horizon,
+  stroke: none,
+  table.header(
+    [],
+    table.vline(),
+    `Array`,
+    [`LinkedList` (by Idx)],
+    [`LinkedList` (by Ref)],
+    `ArrayList`
+  ),
+  table.hline(),
+  [`get(i)`],
+    $O(1)$,
+    $O(i)$,
+    $O(1)$,
+    $O(1)$,
+  [`set(i,v)`],
+    $O(1)$,
+    $O(i)$,
+    $O(1)$,
+    $O(1)$,
+  [`add(i,v)`],
+    $O(N)$,
+    $O(i)$,
+    $O(1)$,
+    [$O(N-i)$ amortized, $O(N)$ unqualified],
+  [`add(v)`],
+    $O(N)$,
+    $O(1)$,
+    $O(1)$,
+    [$O(1)$ amortized, $O(N)$ unqualified],
+  [`remove(i)`],
+    $O(N)$,
+    $O(i)$,
+    $O(1)$,
+    $O(N-i)$,
+)

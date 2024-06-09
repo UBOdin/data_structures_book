@@ -1,3 +1,4 @@
+#set heading(numbering: "1.")
 #import "@preview/plotst:0.2.0": *
 
 = Asymptotic Runtime Complexity
@@ -22,7 +23,115 @@ This is important, but as computer scientists, it can also help to take a more a
 We would like to have a shorthand that we can use to quickly convey the 50,000-ft view of "how fast" the algorithm is going to be.
 That shorthand is asymptotic runtime complexity.
 
-== Some examples of asymptotic runtime complexity
+== Why is Asymptotic Analysis important?
+
+Try the following code in python:
+```python
+from random import randrange
+from datetime import datetime
+N = 10000
+TRIALS = 1000
+
+#### BEGIN INITIALIZE data
+data = []
+for x in range(N):
+    data += [x]
+data = list(data)
+#### END INITIALIZE data
+
+contained = 0
+start_time = datetime.now()
+for x in range(TRIALS):
+    if randrange(N) in data:
+        contained += 1
+end_time = datetime.now()
+
+time = (end_time - start_time).total_seconds() / TRIALS
+
+print(f"For N = {N}, that took {time} seconds per lookup")
+```
+
+This code creates a list of `N` elements, and then does `TRIALS` checks to see if a randomly selected value is somewhere in the list.  This is a toy example, but see what happens as you  increase the value of `N`.  In most versions of python, you'll find that every time you multiply `N` by a factor of, for example 10, the total time taken per lookup grows by the same amount.
+
+Now try something else.  Modify the code so that the `data` variable is initialized as:
+```python
+#### BEGIN INITIALIZE data
+data = []
+for x in range(N):
+    data += [x]
+data = set(data)
+#### END INITIALIZE data
+```
+
+You'll find that now, as you increase `N`, the time taken *per lookup* grows at a much smaller rate.  Depending on the implementation of python you're using, this will either grow as $log N$ or only a tiny bit.  The `set` data structure is much faster at checking whether an element is present than the `list` data structure.  Here's the results from the experiment on my own computer, with `list` marked in solid red and `set` marked in dashed green.
+
+#{
+  let list_pts = (
+    (10, 8.99e-04),
+    (200000, 2.545766),
+    (400000, 4.505643),
+    (600000, 8.956291),
+    (800000, 13.229746),
+    (1000000, 16.772886),
+  )
+  let set_pts = (
+    (10, 8.720000000000001e-04),
+    (200000, 1.108e-03),
+    (400000, 1.309e-03),
+    (600000, 1.283e-03),
+    (800000, 1.228e-03),
+    (1000000, 1.35e-03),
+  )
+  let x_axis = axis(min: 0, max: 1000000, step: 200000,
+                    location: "bottom", title: [Size of Input ($N$)])
+  let y_axis = axis(min: 0, max: 20, step: 5, location: "left", title: [Runtime (s)])
+  let list_plt = graph_plot(
+    plot(data: list_pts, axes: (x_axis, y_axis)),
+    (100%, 25%),
+    stroke: (paint: red, thickness: 2pt),
+    markings: [],
+    caption: [Code with `list` and `set`]
+  )
+  let set_plt = graph_plot(
+    plot(data: set_pts, axes: (x_axis, y_axis)),
+    (100%, 25%),
+    stroke: (paint: green, thickness: 2pt, dash: "dashed"),
+    markings: []
+  )
+  overlay(
+    (list_plt, set_plt), (70%, 25%),
+  )
+} <example_runtime_plot>
+
+There's two important things to take away from this experiment.  
+
+First, the two lines are distinctly different: the runtime for `list` grows, not quite, but more or less as a straight line, while the runtime for set remains imperceptibly small.  If you zoom in, you'll see that it's just about a horizontal line.
+
+Second, this pattern shows up for everyone.
+It doesn't matter what OS you're using, your CPU, your python version, or any other circumstance of how you run the code.  
+If you're using a CPU that's ten times faster than mine, your numbers will be ten times bigger, but if you plot your results for the same experiment, your graphs will have the same general shape#footnote[
+  This is not strictly true.  For some implementations of python, you might see a _slight_ increase in the runtime for `set` that will look like a logarithmic curve.  The main point below, however, still holds.
+].  
+
+The reason for this is simple: 
+To find an element in a `list`, we need to check every element, one-by-one, until we find the element we're looking for.
+On the other hand, in a `set` (implemented as a hash table), there's only one possible place where a specific element might be found.  In general, we only need to do a single check to test whether the element is present#footnote[
+  Again, not entirely true.  Under certain circumstances, hash tables can be as bad as lists.  We'll talk about this in much more detail later in the book.
+].
+
+Put another way, in a `list`, if we have twice as many elements, it will take twice as long to check each and every one.
+Your computer might be ten times faster than mine, but it will still take your computer 2 times as long to find an item in a list of 2 million elements than in a list of 1 million elements.
+On the other hand, in a `set`, through the awesome power of hash tables, we only need to check a single element, regardless of whether the `set` contains 1 element, 100 elements, 1 million elements, or 1 trillion elements.  
+No matter how big it gets, the cost to check whether an element is in the `set` will always be the same#footnote[
+  This is a bit of a lie.  With enough elements you'll run out of memory and your program will either crash or start using 'virtual' memory, which is much slower.  Still, for the sizes of data that we'll be dealing with for most of this book, it's a reasonable approximation to assume that the cost won't change.
+].
+
+The idea that data organization creates a predictable relationship between the amount of data and the cost of accessing the data is at the heart of data structures.
+As a result, it's useful to have some terms that we can use to get across relationships like these without constantly having to resort to saying things like "If you double the number of elements in the list, the runtime of finding an element also doubles."
+
+Asymptotic complexity, which we discuss in this chapter, is how define these terms precisely.
+
+=== Some examples of asymptotic runtime complexity
 
 Look at the documentation for data structures in your favorite language's standard library.
 You'll see things like:
@@ -33,10 +142,10 @@ You'll see things like:
 - The cost of inserting into a Hash Map is Expected $O(1)$, but worst case $O(N)$
 - The cost of retrieving an element from a Cuckoo Hash is always $O(1)$
 
-These are all examples of asymptotic runtimes, and they give you a quick at-a-glance idea of how well the data structure handles specific operations.
-Knowing these facts about the data structures involved can help you plan out the algorithms you're writing, and avoid picking a data structure that tanks the performance of your algorithm.
+These are all examples of asymptotic runtimes, and they are intended to give you a quick at-a-glance idea of how well the data structure handles specific operations.
+Knowing these properties of the data structures you work with can help you to pick data structures that match the needs of you algorithm, and avoid major performance pitfalls.
 
-== Asymptotic Analysis in General
+=== Asymptotic Analysis in General
 
 Although our focus in this book is mainly on asymptotic *runtime* complexity, asymptotic analysis is a general tool that can be used to discuss all sorts of properties of code and algorithms.  For example:
 - How fast is an algorithm?
@@ -47,39 +156,35 @@ Although our focus in this book is mainly on asymptotic *runtime* complexity, as
 
 == Runtime Growth Functions
 
-Let's start by talking about *Runtime Growth Functions*.  A runtime growth function looks like this:
-
-#align(center,[
-  $$T(N)$$
-])
-
-
-Here, $T$ is the name of the function (We usually use $T$ for runtime growth functions, and $N$ is the _size_ of the input.  
-
+Throughout most of the book, we'll use $T(N)$ to mean the runtime (T) of an algorithm run on an input of size $N$.  
 You can think of this function as telling us "For an input of size $N$, this algorithm will take $T(N)$ seconds to run"
-This is a little bit of an inexact statement, since the actual number of seconds it takes depends on the type of computer, implementation details, and more.  
-We'll eventually generalize, but for now, you can assume that we're talking about a specific implementation, on a specific computer (like e.g., your computer).
+This is a little bit of an inexact statement, since the actual number of seconds it takes depends on the type of computer, nuances of implementation, and more.  
+As we'll see later, this imprecision won't actually matter, but for now, you can assume that we're talking about a specific implementation, on a specific computer (like e.g., your computer).
 
-We call this a growth function because it generally has to follow a few rules:
+To make our lives easier, we're going to make a few assumptions about how $T(N)$ works:
 
-- For all $N >= 0$, it must be the case that $T(N) >= 0$
+1. For all $N >= 0$, it must be the case that $T(N) >= 0$
    - The algorithm can't take negative time to run.
-- For all $N >= N'$, it must be the case that $T(N) >= T(N')$
+2. For all $N >= N'$, it must be the case that $T(N) >= T(N')$
    - It shouldn't be the case that the algorithm runs faster on a bigger input #footnote[
      In practice, this is not actually the case.
      We'll see a few examples of functions who's runtime can sometimes be faster on a bigger input. 
      Still, for now, it's a useful simplification.
    ].
 
+We call any function that follows these two rules a *growth function*, and since $T(N)$ is a runtime, we refer to it as a runtime growth function.
+
 
 == Complexity Classes
 
-Before we define the idea of asymptotic runtimes precisely, let's start with an intuitive idea.
-We're going to take algorithms (including algorithms that perform specific operations on a data structure), and group them into what we call *Complexity Classes*#footnote[
+Although we want to define asymptotic complexity classes precisely, it can help to start with a more intuitive idea.
+
+Remember the example above, where the two data structures behaved very differently: The runtime of `in` on a `list` grew linearly with the size of the `list`, while the runtime of `in` on a `set` was completely independent of the size of the `set`.
+We're going to group these behaviors into something that we're going to call *Complexity Classes*#footnote[
   To be pedantic, what we'll be describing is called "simple complexity classes", but throughout this book, we'll refer to them as just complexity classes.
 ].
 
-@linlog_plot shows three different runtime growth functions: Green (dashed), Red (solid), and Blue (dash-dotted).  
+Let's look at a concrete example: @linlog_plot shows three different runtime growth functions: Green (dashed), Red (solid), and Blue (dash-dotted).  
 For an input of size $N = 2$, the green dashed function appears to run the fastest (the best), while the blue dash-dotted function is the slowest (worst).
 By the time we get to $N = 10$, the roles have reversed, and the blue dash-dotted function is the best.
 
@@ -122,62 +227,18 @@ By the time we get to $N = 10$, the roles have reversed, and the blue dash-dotte
 // https://raw.githubusercontent.com/johannes-wolf/cetz/master/manual.pdf
 
 So let's talk about these lines and what we can say about them.
-First, in this book, we're going to ignore what happens for "small" inputs.  
-This isn't always the right thing to do, but we're taking the 50,000 ft view of algorithm performance.
+First, in this book, since we're taking the 50,000 ft view of algorithm performance, we're going to ignore what happens for "small" inputs.  
 From this perspective, the blue dot-dashed line is the "best".
 
 But why is it better?
 If we look closely, both the green dashed and the red solid line are straight lines.  
 The blue dot-dashed line starts going up faster than both the other two lines, but bends downward.
-In short, the blue dot-dashed line draws a function of the form $a log(N) + b$, while the other two lines draw functions of the form .
-For "big enough" values of $N$, any function of the form $a log(N) + b$ will always be smaller than any function of the form $a · N + b$.  
-On the other hand, the value of any two functions of the form $a · N + b$ will always "look" the same.  No matter how far we zoom out, those functions will always be a constant factor different.
+In short, the blue dot-dashed line draws a function of the form $a log(N) + b$, while the other two lines draw functions of the form $a dot N + b$.
+For "big enough" values of $N$, any function of the form $a log(N) + b$ will always be smaller than any function of the form $a dot N + b$.  
+On the other hand, the value of any two functions of the form $a dot N + b$ will always "look" the same.  No matter how far we zoom out, those functions will always be a constant factor different.
 
 Our 50,000 foot view of the runtime of a function (in terms of $N$, the size of its input) will be to look at the "shape" of the curve as we plot it against $N$.
 
-=== Example
-
-Try the following code in python:
-```python
-from random import randrange
-from datetime import datetime
-N = 10000
-TRIALS = 1000
-
-#### BEGIN INITIALIZE data
-data = []
-for x in range(N):
-    data += [x]
-data = list(data)
-#### END INITIALIZE data
-
-contained = 0
-start_time = datetime.now()
-for x in range(TRIALS):
-    if randrange(N) in data:
-        contained += 1
-end_time = datetime.now()
-
-time = (end_time - start_time).total_seconds() / TRIALS
-
-print(f"For N = {N}, that took {time} seconds per lookup")
-```
-
-This code creates a list of `N` elements, and then does `TRIALS` checks to see if a randomly selected value is somewhere in the list.  This is a toy example, but see what happens as you  increase the value of `N`.  In most versions of python, you'll find that every time you multiply `N` by a factor of, for example 10, the total time taken per lookup grows by the same amount.
-
-Now try something else.  Modify the code so that the `data` variable is initialized as:
-```python
-#### BEGIN INITIALIZE data
-data = []
-for x in range(N):
-    data += [x]
-data = set(data)
-#### END INITIALIZE data
-```
-
-You'll find that now, as you increase `N`, the time taken *per lookup* grows at a much smaller rate.  Depending on the implementation of python you're using, this will either grow as $log N$ or only a tiny bit.  The `set` data structure is much faster at checking whether an element is present than the `list` data structure.
-
-Complexity classes are a language that we can use to capture this intuition.  We might say that `set`'s implementation of the `in` operator belongs to the *logarithmic* complexity class, while `list`'s implementation of the operator belongs to the *linear* complexity class.  Just saying this one fact about the two implementations makes it clear that, in general, `set`'s version of `in` is much better than `list`'s.  
 
 == Formal Notation
 
@@ -260,19 +321,21 @@ What complexity class does $10N + N^2$ fall into?  Let's plot it and see:
 
 @poly_plot compares these three functions.  Observe that the dash-dotted blue line starts off very similar to the solid red line.  However, as $N$ grows, its shape soon starts resembling the dashed green $N^2$ more than the solid red $10N$.  
 
-This is a general pattern.  In any polynomial (a sum of mathematical expressions), for really big values of $N$, the complexity class of the "biggest" term starts to win out once we get to really big values of $N$.  
+Although we don't have the tools to prove it yet, take our word for it that this is a pattern.
+In any polynomial (a sum of mathematical expressions), for really big values of $N$, the complexity class of the "biggest" term starts to win out once we get to really big values of $N$.  
 
 In general, for any sum of mathematical functions:
 
-$g(N) = f_1(N) + f_2(N) + ... + f_k(N)$
+$g(N) = f_(1)(N) + f_(2)(N) + ... + f_(k)(N)$
 
-The complexity class of $g(N)$ is the greatest complexity class of any $f_i(N)$
+The complexity class of $g(N)$ is the greatest complexity class of any $f_(i)(N)$
 
 For example:
 - $10N + N^2 in Theta(N^2)$
 - $2^N + 4N in Theta(2^N)$
 - $1000 · N log(N) + 5N in Theta(N log(N))$
 
+We'll prove this formally at the end of the chapter in @summation_proof.
 
 === $Theta$ in mathematical formulas
 
@@ -463,7 +526,7 @@ Before we formalize our bounds, let's first figure out what we want out of that 
 
 Let's start with the basic premise we outlined above: For a function $f(N)$ to be in the set $O(g(N))$, we want there to be some function in $Theta(g(N))$ that is always bigger than $f(N)$.
 
-The first problem we run into with this formalism is that we haven't really defined what exactly $Theta(g(N))$ is yet, so we need to pin down something first.  Let's start with the same assumption we made earlier: we can scale $g(N)$ by any constant value without changing its complexity class.  Formally:
+The first problem we run into with this formalism is that we haven't really defined what exactly $Theta(g(N))$ is yet, so we need to pin down something first.  Let's start with the same assumption we made earlier: we can scale $g(N)$ by any constant value without changing its complexity class.  
 
 Formally: $forall c : c dot g(N) in Theta(g(N))$
 
@@ -501,7 +564,7 @@ So, the inequality is always true for any value of $c >= 100$.
 
 *Example:* $f(N) = N$ vs $g(N) = N^2$
 
-Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
+Can we find a $c$ and show that for this $c$, for all *integer* values of $N$, the Big-$O$ inequality holds for $f$ and $g$?
 
 - $f(N) <= c dot g(N)$
 - $N <= c dot N^2$
@@ -513,11 +576,20 @@ Can we find a $c$ and show that for this $c$, for all values of $N$, the Big-$O$
   Recall that we're only allowing non-negative input sizes (i.e., $N >= 0$), so negative values of $N$ aren't a problem. 
 ].
 
-So, we need to add one more thing to the formalism: the idea that we only care about "big" values of N.  Of course, that leaves the question of how big is "big"?  Now, we could pick specific cutoff values, but any specific cutoff we picked would be entirely arbitrary.  So, instead, we just make the cutoff definition part of the proof: When proving that $f(N) in O(g(N))$, we just need to show that *some* cutoff exists, beyond which $f(N) <= c dot g(N)$.  *The formal definition of Big-$O$ is*:
+So, we need to add one more thing to the formalism: the idea that we only care about "big" values of N.  Of course, that leaves the question of how big is "big"?  Now, we could pick specific cutoff values, but any specific cutoff we picked would be entirely arbitrary.  So, instead, we just make the cutoff definition part of the proof: When proving that $f(N) in O(g(N))$, we just need to show that *some* cutoff exists, beyond which $f(N) <= c dot g(N)$.  
+
+*The formal definition of Big-$O$ is*:
 
 $f(N) in O(g(N)) <=> exists c > 0, N_0 >= 0: forall N >= N_0 : f(N) <= c dot g(N)$
 
-This is the same as our first attempt, with only one thing added: $N_0$.  In other words, $f(N) in O(g(N))$ if we can pick some cutoff value ($exists N_0 >= 0$) so that for every bigger value of $N$ ($N >= N_0$), $f(N)$ is smaller than $c dot g(N)$.
+In this equation, $exists$ means "there exists" and $forall$ means "for all".  Teasing apart the above equation: 
+- $f(N) in O(g(N))$, the thing we want to define, is equivalently defined as ($<=>$)...
+- There exists some constant $c$ strictly bigger than 0 ($exists c > 0$).
+- There exists some cutoff value for $N$ ($exists N_0 >= 0$)...
+- So that for any larger value of $N$ ($N >= N_0$)...
+- $f(N)$ is smaller than $c dot g(N)$.
+
+In other words, saying $f(N) in O(g(N))$ is the same as saying that there is some constant $c$ so that for sufficiently large $N$, $f(N) <= c dot g(N)$.
 
 === Proving a function has a specific Big-$O$ bound
 
@@ -530,13 +602,40 @@ To show that a mathematical function is *in* $O(g(N))$, we need to find a $c$ an
 5. Use the $A <= B$ and $B <= C$ imply $A <= C$ trick (transitivity of inequality) to replace any term involving $N$ with $N_0$
 5. Use the resulting inequality to find a lower bound on $c$
 
-Continuing the above example:
+Continuing the above example of $f(N) = N$ and $g(N) = N^2$, we want to show that there is a constant $c$ so that for sufficiently large $N$.
 
-- $f(N) <= c dot g(N)$
-- $N <= c dot N^2$
-- $1/N <= c$
+$f(N) <= c dot g(N)$
 
-For that last step, we have $N_0 <= N$, or $1 <= N$, so dividing both sides by $N$, we get $1/N <= 1$.  So, if we pick $1 <= c$, then $1/N <= 1 <= c$, and $1/N <= c$.
+We start by "plugging in" values of $f$ and $g$:
+
+$N <= c dot N^2$
+
+We can solve for $c$ by dividing both sides by $N^2$, getting: 
+
+$1/N <= c$
+
+From here, we need to find a constant $c$ that is bigger than $1/N$ for all sufficiently large values of $N$.  If we can find such a constant, then we can work backwards through the proof to show that $f(N) <= c dot g(N)$ for that constant.  
+
+Remember that we defined "sufficiently large" values of $N$ as all values of $N$ greater than some constant $N_0$.  Following the guidelines above, let's pick a value of $N_0 = 1$.  Observe that the function $1/N$ shrinks as $N$ grows.  The greatest value of $1/N$ occurs when $N$ is at its smallest value ($N_0 = 1$). In other words, we can say that:
+
+$1/N <= 1$ for all $N >= 1$
+
+This equation fits the pattern!  So, since 
+
+$1/N <= 1$
+
+... and with $c = 1$, we have
+
+$1/N <= c$
+
+Which in turn means that
+
+$N <= c dot N^2$
+
+And so swapping in $f(N)$ and $g(N)$:
+
+$f(N) <= c dot g(N)$
+
 
 === Proving a function does not have a specific Big-$O$ bound
 
@@ -638,6 +737,8 @@ If it is not possible to obtain a better Big-$O$ or Big-$Omega$ bound, we say th
 Note that since we define Big-$Theta$ as the intersection of Big-$O$ and Big-$Omega$, all Big-$Theta$ bounds are, by definition tight.
 As a result, we often call Big-$Theta$ bounds "tight bounds".
 
+*Note*: It *is* possible for a Big-$O$ or Big-$Omega$ bound to be tight, without having a Big-$Theta$ bound.  You'll see an example of this below in @interpreting_code.
+
 == Which Variable?
 
 We define asymptotic complexity bounds in terms of *some* variable, usually the size of the collection $N$.  However, it's also possible to use other bounds.  For example, consider the function, which computes factorial:
@@ -695,7 +796,7 @@ For any two functions $f(N)$ and $g(N)$ we say that:
 
 Note that a simple $Theta(g(N))$ may not exist for a given $f(N)$, specifically when the tight Big-$O$ and Big-$Omega$ bounds are different.
 
-=== Interpreting Code
+=== Interpreting Code<interpreting_code>
 
 In general#footnote[
   All of these are lies.  The cost of basic arithmetic is often $O(log N)$, array access runtimes are affected by caching (we'll address that later in the book), and string operations are proportional to the length of the string.  However, these are all useful simplifications for now.
@@ -762,9 +863,9 @@ These complexity classes are listed in order.
 
 In general, any function that is a sum of simpler functions will be dominated by one of its terms.  That is, for a polynomial:
 
-$f(N) = f_1(N) + f_2(N) + ... + f_k(N)$
+$f(N) = f_(1)(N) + f_(2)(N) + ... + f_(k)(N)$
 
-The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, and its Big-$Theta$ bound, if it exists) will be the *greatest* complexity of any individual term $f_i(N)$#footnote[
+The asymptotic complexity of $f(N)$ (i.e., its Big-$O$ and Big-$Omega$ bounds, and its Big-$Theta$ bound, if it exists) will be the *greatest* complexity of any individual term $f_(i)(N)$#footnote[
   Note that this is only true when $k$ is fixed.  If the number of polynomial terms depends on $N$, we need to consider the full summation.
 ].
 
@@ -796,3 +897,74 @@ In this case, we can bound the runtime based on `idx`.  Assuming `do_a_thing()` 
 - $T(N) in O(N)$
 
 Remember that if we can not obtain identical, tight upper and lower bounds in terms of a given input variable, there is no simple $Theta$-bound in terms of that variable.
+
+=== Proving Summation<summation_proof>
+
+Earlier, we claimed that the sum of a collection of functions belonged to the greatest complexity class of any of the component functions.  
+
+To make this statement more precise, let's start by defining the sum ($g$) and the component functions ($f_1 ... f_k$).
+Although we make this assumption in general, we'll be explicit here that we're going to assume that each $f_i$ is a growth function.
+
+$g(N) = f_(1)(N) + f_(2)(N) + ... + f_(k)(N)$
+
+At least one of the functions has to belong to the greatest complexity class.  Let's call this one $f_("max")$.  In formal terms, this means that for all $1 <= i <= k$: 
+
+$forall i in [1, k]: f_(i)(N) in O(f_("max")(N))$.
+
+We want to prove that $g(N) = Theta(f_("max")(N))$.  Recall that, to prove this, we need to show (i) that $g(N) in O(f_("max")(N))$, and (ii) that $g(N) in Omega(f_("max")(N))$
+
+==== Upper Bound
+Let's start with showing Big-O.  We want to show that 
+
+$g(N) in O(f_("max"))$
+
+Expanding out both $g(N)$ and the Big-O, this is equivalent to showing that there exists a $c$ so that for any sufficiently large $N$:
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) <= c dot f_("max")(N)$
+
+Recall that, since $f_("max")$ belongs to the greatest complexity class, we have that for all $1 <= i <= k$: 
+
+$forall i in [1, k]: f_(i)(N) in O(f_("max")(N))$.
+
+Or, expanding out the Big-O (for a sufficiently large $N$):
+
+$forall i in [1, k]: f_(i)(N) <= c_i dot f_("max")(N)$.
+
+If we add together both sides of this equation, we get
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) <= c_1 dot f_("max")(N) + c_2 dot f_("max")(N) + ... + c_k dot f_("max")(N)$
+
+Factoring the function out from the right-hand side: 
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) <= (c_1 + c_2 + ... + c_k) dot f_("max")(N)$
+
+And since $c_1 + c_2 + ... + c_k$ is a constant, we can label that constant $c$: 
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) <= c dot f_("max")(N)$
+
+Which is what we wanted to show in the first place, so as the math hippies say, QED.
+
+==== Lower Bound
+A bit less intuitively, we want to show that $g(N)$ grows at least as fast as $f_("max")(N)$, or:
+
+$g(N) in Omega(f_("max"))$
+
+Again, we expand out both $g(N)$ and Big-$Omega$, and want to show that (for a sufficiently large N), there is a constant $c$ for which we can show:
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) >= c dot f_("max")(N)$
+
+Remember that we're assuming that each $f_(i)$ is a growth function. 
+Going back to the definition of growth functions, this means that $f_(i)(N) >= 0$ for *any* positive value of $N$.  
+Since each $f_(i)$ must be at least 0, replacing every $f_(i)$ *except* $f_"max"$ with 0 can only make their sum smaller:
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) >= 0 + ... + f_("max")(N) + ... + 0$
+
+Simplifying the right-hand side:
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) >= f_("max")(N)$
+
+Multiplying the right-hand side by 1
+
+$f_(1)(N) + f_(2)(N) + ... + f_(k)(N) >= 1 dot f_("max")(N)$
+
+Which is the equation that we want to show, for $c = 1$.
